@@ -1,14 +1,11 @@
 ---
 layout: post
-title: "First Post 6.11.14"
+title: "The Surprising Accessibility of Coding"
 date: 2014-06-11 23:44:16 -0400
 comments: true
 categories: "Flatiron&nbsp;School"
 ---
-<h1>The Surprising Accessibility of Coding</h1>
-<p>
 If you had come up to me a year ago and told me that I would become a web developer, I would have laughed in your face…hard. But here I am, after having a career as a professional opera singer, learning Ruby, a back-end web programming language used to develop some pretty complex web applications. And I’m actually liking it.
-</p>
 <p>
 Like many, when I thought of programming, a stereo-type came to mind: one of a socially awkward loner whose brain works at lightning speed and is most likely a genius at math. And when I decided to switch careers at 30, I never thought of coding as a possibility. I was after all, coming from the world of opera. Opera singer turned coder? Ha! But then, at the urging of multiple friends, I decided to give it a chance. 
 </p>
@@ -22,5 +19,5 @@ I quickly discovered, that I already had skills that are applicable to coding. P
 I was also surprised by the creativity involved in coding. It isn’t just writing a bunch of zeros and ones that will sit on a server all alone like a chubby girl at a school dance. It’s building something that will speak to the world and could even change someone’s life…or just let them buy shoes, which is also cool. There are a million different ways, especially in Ruby, that allow you to code the same thing. You have a lot more freedom than you think and this is where you can let your creativity flow.
 </p>
 <p>
-In the future, most of my blog post will be more technical, focusing on specific aspects of Ruby and coding in general. But I thought it was so important to address this huge misconception the majority of humanity has when it comes to this profession. I urge you take a stab at it. Try your hand at HTML at code.org or codecademy.com. You may surprise yourself!
+In the future, most of my blog posts will be more technical, focusing on specific aspects of Ruby and coding in general. But I thought it was so important to address this huge misconception the majority of humanity has when it comes to this profession. I urge you take a stab at it. Try your hand at HTML at <a href="http://code.org">code.org</a> or <a href="http://www.codecademy.com">codecademy</a>. Or, if you are an experienced coder who wants to help make coding more accessible to more people, volunteer for such non-profits as <a href="http://girlswhocode.com">Girls Who Code</a> or <a href="http://www.coderdojonyc.com">CoderDojo NYC</a> and help spread the code.
 </p>
