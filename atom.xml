@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[An Unexpected Coder]]></title>
+  <link href="http://ccmeyers.github.io/atom.xml" rel="self"/>
+  <link href="http://ccmeyers.github.io/"/>
+  <updated>2014-06-11T23:47:22-04:00</updated>
+  <id>http://ccmeyers.github.io/</id>
+  <author>
+    <name><![CDATA[Catherine Meyers]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[First Post 6.11.14]]></title>
+    <link href="http://ccmeyers.github.io/blog/2014/06/11/first-post-6-dot-11-dot-14/"/>
+    <updated>2014-06-11T23:44:16-04:00</updated>
+    <id>http://ccmeyers.github.io/blog/2014/06/11/first-post-6-dot-11-dot-14</id>
+    <content type="html"><![CDATA[<p>&ldquo;Hello, world!&rdquo;</p>
+]]></content>
+  </entry>
+  
+</feed>
