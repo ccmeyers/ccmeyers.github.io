@@ -23,3 +23,4 @@ I was also surprised by the creativity involved in coding. It isn’t just writi
 </p>
 <p>
 In the future, most of my blog post will be more technical, focusing on specific aspects of Ruby and coding in general. But I thought it was so important to address this huge misconception the majority of humanity has when it comes to this profession. I urge you take a stab at it. Try your hand at HTML at code.org or codecademy.com. You may surprise yourself!
+</p>
