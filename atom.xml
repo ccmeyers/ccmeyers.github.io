@@ -4,7 +4,7 @@
   <title><![CDATA[An Unexpected Coder]]></title>
   <link href="http://ccmeyers.github.io/atom.xml" rel="self"/>
   <link href="http://ccmeyers.github.io/"/>
-  <updated>2014-06-12T09:25:38-04:00</updated>
+  <updated>2014-06-24T16:21:03-04:00</updated>
   <id>http://ccmeyers.github.io/</id>
   <author>
     <name><![CDATA[Catherine Meyers]]></name>
@@ -14,10 +14,13 @@
 
   
   <entry>
+    
     <title type="html"><![CDATA[The Surprising Accessibility of Coding]]></title>
     <link href="http://ccmeyers.github.io/blog/2014/06/11/first-post-6-dot-11-dot-14/"/>
+    
     <updated>2014-06-11T23:44:16-04:00</updated>
     <id>http://ccmeyers.github.io/blog/2014/06/11/first-post-6-dot-11-dot-14</id>
+    
     <content type="html"><![CDATA[<p>If you had come up to me a year ago and told me that I would become a web developer, I would have laughed in your face…hard. But here I am, after having a career as a professional opera singer, learning Ruby, a back-end web programming language used to develop some pretty complex web applications. And I’m actually liking it.</p>
 
 <p>
@@ -45,6 +48,7 @@ In the future, most of my blog posts will be more technical, focusing on specifi
 </p>
 
 ]]></content>
+    
   </entry>
   
 </feed>
