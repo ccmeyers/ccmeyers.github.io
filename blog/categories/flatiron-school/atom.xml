@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Flatiron&nbsp;School | An Unexpected Coder]]></title>
   <link href="http://ccmeyers.github.io/blog/categories/flatiron-school/atom.xml" rel="self"/>
   <link href="http://ccmeyers.github.io/"/>
-  <updated>2014-06-25T22:23:16-04:00</updated>
+  <updated>2014-08-10T01:00:59-04:00</updated>
   <id>http://ccmeyers.github.io/</id>
   <author>
     <name><![CDATA[Catherine Meyers]]></name>
@@ -12,6 +12,84 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Premature Ajaxulation]]></title>
+    <link href="http://ccmeyers.github.io/blog/2014/08/10/premature-ajaxulation/"/>
+    <updated>2014-08-10T00:01:10-04:00</updated>
+    <id>http://ccmeyers.github.io/blog/2014/08/10/premature-ajaxulation</id>
+    <content type="html"><![CDATA[<h2>Don&rsquo;t worry, it happens to a lot of functions</h2>
+
+<p>Recently, while building an app that used a lot of ajax calls, we kept on running into the problem of an ajax call firing before the function above it finished. Given that the function above provided variables that were necessary in our ajax call, this broke everything.</p>
+
+<p>My team and I scoured the internet (i.e. stack overflow) for an answer, but came up with nothing. We finally asked a Flatiron School TA, and she gave a us a great solution.</p>
+
+<p>We were building an app that calculates the half-way point of a given route. Then, we used the latitude and longitude of that point to search the Yelp API. The ajax call helps us get our javascript variables to the ruby method that directly deals with the API. And, here&rsquo;s what it looks like:</p>
+
+<p>```javascript
+var check_done = &ldquo;not done&rdquo;</p>
+
+<p>function getStopPoint(response, percentage) {
+  var totalDist = response.routes[0].legs[0].distance.value,</p>
+
+<pre><code>  totalTime = response.routes[0].legs[0].duration.value,
+  distance = (percentage/100) * totalDist,
+  time = ((percentage/100) * totalTime/60).toFixed(2),
+  polyline = new google.maps.Polyline({
+    path: [],
+    strokeColor: '#FF0000',
+    strokeWeight: 3
+  });
+  var bounds = new google.maps.LatLngBounds();
+  var steps = response.routes[0].legs[0].steps;
+  for (j=0; j&lt;steps.length; j++) {
+    var nextSegment = steps[j].path;
+    for (k=0; k&lt;nextSegment.length; k++) {
+      polyline.getPath().push(nextSegment[k]);
+      bounds.extend(nextSegment[k]);
+    }
+  }
+</code></pre>
+
+<p>  stopPointLatLonObject = polyline.GetPointAtDistance(distance);
+  placeMarker(stopPointLatLonObject);
+  stopPointLat = stopPointLatLonObject[&ldquo;d&rdquo;];
+  stopPointLon = stopPointLatLonObject[&ldquo;e&rdquo;];
+  check_done = &ldquo;done&rdquo;;
+}</p>
+
+<p>function check(){
+  if (check_done === &ldquo;done&rdquo;){</p>
+
+<pre><code>$.ajax({
+   url:'/restaurants/yelp_search', 
+   type: 'POST',
+   data:(
+     'lat=' + stopPointLat + '&amp;' +
+     'lon=' + stopPointLon + '&amp;' +
+     'type=' + $("#type").val() + '&amp;' +
+     'sort=' + $("#sort").val() + '&amp;' +
+     'mtd=' + $("#mtd").val()
+   )
+});
+</code></pre>
+
+<p>  } else {</p>
+
+<pre><code>setTimeout(check, 1000);
+</code></pre>
+
+<p>  }
+}
+```</p>
+
+<p>The getStopPoint function goes through the polyline (we&rsquo;re dealing with the lovely Google Maps API here) and finds the stopping point. The most important part of the getStopPoint function is where we define our stopPointLat and stopPointLon variables. Those are the lat/lng coordinates we&rsquo;re going to send to the Yelp API via the ajax call. But, alas, alack! All is going to break if the ajax train leaves the station without its lat/lng coordinates!</p>
+
+<p>How we went about fixing this was by using a check_done variable that is set to &ldquo;not done&rdquo; when it is defined. It only changes to &ldquo;done&rdquo; once stopPointLat and stopPointLon have their values. We use an if/else statement inside the check function to make sure that check_done === &ldquo;done&rdquo; before we send off our ajax call. Else, we setTimeout and run the check function all over again.</p>
+
+<p>I hope that helps anyone out there who might have this problem!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Iterators Schmiterators]]></title>

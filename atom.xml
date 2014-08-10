@@ -4,7 +4,7 @@
   <title><![CDATA[An Unexpected Coder]]></title>
   <link href="http://ccmeyers.github.io/atom.xml" rel="self"/>
   <link href="http://ccmeyers.github.io/"/>
-  <updated>2014-06-25T22:23:16-04:00</updated>
+  <updated>2014-08-10T01:00:59-04:00</updated>
   <id>http://ccmeyers.github.io/</id>
   <author>
     <name><![CDATA[Catherine Meyers]]></name>
@@ -12,6 +12,124 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    
+    <title type="html"><![CDATA[Premature Ajaxulation]]></title>
+    <link href="http://ccmeyers.github.io/blog/2014/08/10/premature-ajaxulation/"/>
+    
+    <updated>2014-08-10T00:01:10-04:00</updated>
+    <id>http://ccmeyers.github.io/blog/2014/08/10/premature-ajaxulation</id>
+    
+    <content type="html"><![CDATA[<h2>Don&rsquo;t worry, it happens to a lot of functions</h2>
+
+<p>Recently, while building an app that used a lot of ajax calls, we kept on running into the problem of an ajax call firing before the function above it finished. Given that the function above provided variables that were necessary in our ajax call, this broke everything.</p>
+
+<p>My team and I scoured the internet (i.e. stack overflow) for an answer, but came up with nothing. We finally asked a Flatiron School TA, and she gave a us a great solution.</p>
+
+<p>We were building an app that calculates the half-way point of a given route. Then, we used the latitude and longitude of that point to search the Yelp API. The ajax call helps us get our javascript variables to the ruby method that directly deals with the API. And, here&rsquo;s what it looks like:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">check_done</span> <span class="o">=</span> <span class="s2">&quot;not done&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">function</span> <span class="nx">getStopPoint</span><span class="p">(</span><span class="nx">response</span><span class="p">,</span> <span class="nx">percentage</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">totalDist</span> <span class="o">=</span> <span class="nx">response</span><span class="p">.</span><span class="nx">routes</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">legs</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">distance</span><span class="p">.</span><span class="nx">value</span><span class="p">,</span>
+</span><span class='line'>      <span class="nx">totalTime</span> <span class="o">=</span> <span class="nx">response</span><span class="p">.</span><span class="nx">routes</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">legs</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">duration</span><span class="p">.</span><span class="nx">value</span><span class="p">,</span>
+</span><span class='line'>      <span class="nx">distance</span> <span class="o">=</span> <span class="p">(</span><span class="nx">percentage</span><span class="o">/</span><span class="mi">100</span><span class="p">)</span> <span class="o">*</span> <span class="nx">totalDist</span><span class="p">,</span>
+</span><span class='line'>      <span class="nx">time</span> <span class="o">=</span> <span class="p">((</span><span class="nx">percentage</span><span class="o">/</span><span class="mi">100</span><span class="p">)</span> <span class="o">*</span> <span class="nx">totalTime</span><span class="o">/</span><span class="mi">60</span><span class="p">).</span><span class="nx">toFixed</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span>
+</span><span class='line'>      <span class="nx">polyline</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">google</span><span class="p">.</span><span class="nx">maps</span><span class="p">.</span><span class="nx">Polyline</span><span class="p">({</span>
+</span><span class='line'>        <span class="nx">path</span><span class="o">:</span> <span class="p">[],</span>
+</span><span class='line'>        <span class="nx">strokeColor</span><span class="o">:</span> <span class="s1">&#39;#FF0000&#39;</span><span class="p">,</span>
+</span><span class='line'>        <span class="nx">strokeWeight</span><span class="o">:</span> <span class="mi">3</span>
+</span><span class='line'>      <span class="p">});</span>
+</span><span class='line'>      <span class="kd">var</span> <span class="nx">bounds</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">google</span><span class="p">.</span><span class="nx">maps</span><span class="p">.</span><span class="nx">LatLngBounds</span><span class="p">();</span>
+</span><span class='line'>      <span class="kd">var</span> <span class="nx">steps</span> <span class="o">=</span> <span class="nx">response</span><span class="p">.</span><span class="nx">routes</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">legs</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">steps</span><span class="p">;</span>
+</span><span class='line'>      <span class="k">for</span> <span class="p">(</span><span class="nx">j</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">j</span><span class="o">&lt;</span><span class="nx">steps</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="kd">var</span> <span class="nx">nextSegment</span> <span class="o">=</span> <span class="nx">steps</span><span class="p">[</span><span class="nx">j</span><span class="p">].</span><span class="nx">path</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">for</span> <span class="p">(</span><span class="nx">k</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">k</span><span class="o">&lt;</span><span class="nx">nextSegment</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">k</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>          <span class="nx">polyline</span><span class="p">.</span><span class="nx">getPath</span><span class="p">().</span><span class="nx">push</span><span class="p">(</span><span class="nx">nextSegment</span><span class="p">[</span><span class="nx">k</span><span class="p">]);</span>
+</span><span class='line'>          <span class="nx">bounds</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">nextSegment</span><span class="p">[</span><span class="nx">k</span><span class="p">]);</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>  <span class="nx">stopPointLatLonObject</span> <span class="o">=</span> <span class="nx">polyline</span><span class="p">.</span><span class="nx">GetPointAtDistance</span><span class="p">(</span><span class="nx">distance</span><span class="p">);</span>
+</span><span class='line'>  <span class="nx">placeMarker</span><span class="p">(</span><span class="nx">stopPointLatLonObject</span><span class="p">);</span>
+</span><span class='line'>  <span class="nx">stopPointLat</span> <span class="o">=</span> <span class="nx">stopPointLatLonObject</span><span class="p">[</span><span class="s2">&quot;d&quot;</span><span class="p">];</span>
+</span><span class='line'>  <span class="nx">stopPointLon</span> <span class="o">=</span> <span class="nx">stopPointLatLonObject</span><span class="p">[</span><span class="s2">&quot;e&quot;</span><span class="p">];</span>
+</span><span class='line'>  <span class="nx">check_done</span> <span class="o">=</span> <span class="s2">&quot;done&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">function</span> <span class="nx">check</span><span class="p">(){</span>
+</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="nx">check_done</span> <span class="o">===</span> <span class="s2">&quot;done&quot;</span><span class="p">){</span>
+</span><span class='line'>    <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
+</span><span class='line'>       <span class="nx">url</span><span class="o">:</span><span class="s1">&#39;/restaurants/yelp_search&#39;</span><span class="p">,</span>
+</span><span class='line'>       <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;POST&#39;</span><span class="p">,</span>
+</span><span class='line'>       <span class="nx">data</span><span class="o">:</span><span class="p">(</span>
+</span><span class='line'>         <span class="s1">&#39;lat=&#39;</span> <span class="o">+</span> <span class="nx">stopPointLat</span> <span class="o">+</span> <span class="s1">&#39;&amp;&#39;</span> <span class="o">+</span>
+</span><span class='line'>         <span class="s1">&#39;lon=&#39;</span> <span class="o">+</span> <span class="nx">stopPointLon</span> <span class="o">+</span> <span class="s1">&#39;&amp;&#39;</span> <span class="o">+</span>
+</span><span class='line'>         <span class="s1">&#39;type=&#39;</span> <span class="o">+</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#type&quot;</span><span class="p">).</span><span class="nx">val</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;&amp;&#39;</span> <span class="o">+</span>
+</span><span class='line'>         <span class="s1">&#39;sort=&#39;</span> <span class="o">+</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#sort&quot;</span><span class="p">).</span><span class="nx">val</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;&amp;&#39;</span> <span class="o">+</span>
+</span><span class='line'>         <span class="s1">&#39;mtd=&#39;</span> <span class="o">+</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#mtd&quot;</span><span class="p">).</span><span class="nx">val</span><span class="p">()</span>
+</span><span class='line'>       <span class="p">)</span>
+</span><span class='line'>    <span class="p">});</span>
+</span><span class='line'>  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">setTimeout</span><span class="p">(</span><span class="nx">check</span><span class="p">,</span> <span class="mi">1000</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The getStopPoint function goes through the polyline (we&rsquo;re dealing with the lovely Google Maps API here) and finds the stopping point. The most important part of the getStopPoint function is where we define our stopPointLat and stopPointLon variables. Those are the lat/lng coordinates we&rsquo;re going to send to the Yelp API via the ajax call. But, alas, alack! All is going to break if the ajax train leaves the station without its lat/lng coordinates!</p>
+
+<p>How we went about fixing this was by using a check_done variable that is set to &ldquo;not done&rdquo; when it is defined. It only changes to &ldquo;done&rdquo; once stopPointLat and stopPointLon have their values. We use an if/else statement inside the check function to make sure that check_done === &ldquo;done&rdquo; before we send off our ajax call. Else, we setTimeout and run the check function all over again.</p>
+
+<p>I hope that helps anyone out there who might have this problem!</p>
+]]></content>
+    
+  </entry>
   
   <entry>
     
