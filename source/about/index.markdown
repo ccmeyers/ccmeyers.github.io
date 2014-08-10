@@ -5,7 +5,7 @@ comments: true
 sharing: true
 footer: true
 ---
-{% img center /images/catherine_meyers.jpg 'Catherine Meyers' %}
+![Catherine Meyers](/images/catherine_meyers.jpg)
 
 Hi, I'm Catherine and I'm a Ruby newbie. I came to [The Flatiron School](http://flatironschool.com/) after leaving a career as a professional opera singer, and I am constantly amazed at the parallels between these two careers.
 
