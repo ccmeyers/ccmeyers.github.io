@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Premature Ajaxilation"
+title: "Premature Ajaxulation"
 date: 2014-08-10 00:01:10 -0400
 comments: true
 categories: "Flatiron&nbsp;School"
@@ -10,11 +10,13 @@ categories: "Flatiron&nbsp;School"
 
 Recently, while building an app that used a lot of ajax calls, we kept on running into the problem of an ajax call firing before the function above it finished. Given that the function above provided variables that were necessary in our ajax call, this broke everything.
 
-My team and I scoured the internet (i.e. stack overflow) for an answer, but came up with nothing. We finally asked a Flatiron School TA and she gave a us a great solution.
+My team and I scoured the internet (i.e. stack overflow) for an answer, but came up with nothing. We finally asked a Flatiron School TA, and she gave a us a great solution.
 
-We were building an app that had to determine the half-way point of a given route. Then, we used the latitude and longitude of that point to search the Yelp API. The ajax call helped us get our javascript variables to the ruby method that directly dealt with the API. Here's what it looked like:
+We were building an app that calculates the half-way point of a given route. Then, we used the latitude and longitude of that point to search the Yelp API. The ajax call helps us get our javascript variables to the ruby method that directly deals with the API. And, here's what it looks like:
 
 ```javascript
+var check_done = "not done"
+
 function getStopPoint(response, percentage) {
   var totalDist = response.routes[0].legs[0].distance.value,
       totalTime = response.routes[0].legs[0].duration.value,
@@ -60,8 +62,8 @@ function check(){
 }
 ```
 
-The getStopPoint function goes through the polyline (we're dealing with the lovely Google Maps API here) and finds the stopping point. The most important part of the getStopPoint function is the end where we define our stopPointLat and stopPointLon variables. Those are the lat/lng coordinates we're going to send to the Yelp API via the ajax call. But, alas, alack! All is going to break if the ajax train leaves the station without its lat/lng coordinates!
+The getStopPoint function goes through the polyline (we're dealing with the lovely Google Maps API here) and finds the stopping point. The most important part of the getStopPoint function is where we define our stopPointLat and stopPointLon variables. Those are the lat/lng coordinates we're going to send to the Yelp API via the ajax call. But, alas, alack! All is going to break if the ajax train leaves the station without its lat/lng coordinates!
 
 How we went about fixing this was by using a check_done variable that is set to "not done" when it is defined. It only changes to "done" once stopPointLat and stopPointLon have their values. We use an if/else statement inside the check function to make sure that check_done === "done" before we send off our ajax call. Else, we setTimeout and run the check function all over again.
 
-I hope that helps anyone out there who might have this problem. If you have a better solution, please let me know! I'm still learning.
+I hope that helps anyone out there who might have this problem!
