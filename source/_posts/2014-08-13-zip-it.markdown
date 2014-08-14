@@ -1,0 +1,50 @@
+---
+layout: post
+title: "Zip It, and Zip it Good"
+date: 2014-08-13 19:42:16 -0400
+comments: true
+categories: 
+---
+Sometimes scraping can be a complete pain when the site you're dealing with is poorly structured. While trying to scrape composers and their respective musical pieces from a site, we ran into a problem because a composer's pieces were not nested within that composer. Enter the ZIP method, the coolest method I had never heard of that I found out about today.
+
+Here's an example of the html structure we were dealing with:
+```html
+<div lang="en" dir="ltr" class="mw-content-ltr">
+  <p><b>Alejandre Prada, Manuel</b></p>
+
+  <dl>
+    <dd>Suite, Op.44</dd>
+  </dl>
+
+  <p><b>Barthe, Adrien</b></p>
+
+  <dl>
+    <dd>Aubade</dd>
+  </dl>
+</div>
+```
+It was easy to grab the composers and pieces seperately:
+```ruby
+composers = @doc.css('div.mw-content-ltr p')
+  #=>[#<Nokogiri::XML::Element:0x816eb2a8 name="p" children=[#<Nokogiri::XML::Element:0x816eb0c8 name="b" children=[#<Nokogiri::XML::Text:0x816eaee8 "Alejandre Prada, Manuel">]>, #<Nokogiri::XML::Text:0x816ead44 "\n">]>, #<Nokogiri::XML::Element:0x816ef894 name="p" children=[#<Nokogiri::XML::Element:0x816ef6b4 name="b" children=[#<Nokogiri::XML::Text:0x816ef4d4 "Barthe, Adrien">]
+pieces = @doc.css('div.mw-content-ltr dl')
+  #=>[#<Nokogiri::XML::Element:0x816eaaec name="dl" children=[#<Nokogiri::XML::Element:0x816ea90c name="dd" children=[#<Nokogiri::XML::Text:0x816ea72c " ">, #<Nokogiri::XML::Element:0x816ea678 name="a" attributes=[#<Nokogiri::XML::Attr:0x816ea614 name="href" value="/wiki/Suite,_Op.44_(Alejandre_Prada,_Manuel)">, #<Nokogiri::XML::Attr:0x816ea600 name="title" value="Suite, Op.44 (Alejandre Prada, Manuel)">, #<Nokogiri::XML::Attr:0x816ea5ec name="class" value="mw-redirect">] children=[#<Nokogiri::XML::Text:0x816efd80 "Suite, Op.44">]>, #<Nokogiri::XML::Text:0x816efbdc "\n">]>]>, #<Nokogiri::XML::Element:0x816ef0d8 name="dl" children=[#<Nokogiri::XML::Element:0x816eeef8 name="dd" children=[#<Nokogiri::XML::Text:0x816eed18 " ">, #<Nokogiri::XML::Element:0x816eec64 name="a" attributes=[#<Nokogiri::XML::Attr:0x816eec00 name="href" value="/wiki/Aubade_(Barthe,_Adrien)">, #<Nokogiri::XML::Attr:0x816eebec name="title" value="Aubade (Barthe, Adrien)">] children=[#<Nokogiri::XML::Text:0x816ee5ac "Aubade">]>, #<Nokogiri::XML::Text:0x816ee408 "\n">]>]>,
+```
+And iterate through them, putting the text into arrays:
+```ruby
+composers_names = composers.collect {|e|e.text.gsub("\n", "")}
+  #=>["Alejandre Prada, Manuel", "Barthe, Adrien"]
+pieces_names = pieces.collect {|e|e.text}
+  #=>[" Suite, Op.44", " Aubade"]
+```
+Then, we had to put these two arrays back together! So...we zipped 'em!
+```ruby
+composers_pieces = composers_names.zip(pieces_names)
+  #=>[["Alejandre Prada, Manuel", " Suite, Op.44"], ["Barthe, Adrien", " Aubade"]]
+```
+Hooray! We now have paired the correct piece with the correct composer. All we had to do then was iterate through our arrays to create hashes: assigning array[0] as the key and array[1..-1] as the value. We needed [1..-1] because sometimes a composer has multiple pieces.
+```ruby
+composers_pieces.collect {|array| {array[0] => array[1..-1]}}
+  #=> [{"Alejandre Prada, Manuel"=>[" Suite, Op.44"]}, {"Barthe, Adrien"=>[" Aubade"]}]
+```
+From there it was easy to save the key as the composer and the value as that composer's piece. Thank you to my team members for their help with this today. Shout out to [Rebecca Greenblatt](http://rebeccagreenblatt.github.io/) and [Will Lowry](http://wlowry88.github.io/)!
