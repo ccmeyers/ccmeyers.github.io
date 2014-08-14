@@ -1,0 +1,289 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Zip It, and Zip it Good - An Unexpected Coder</title>
+  <meta name="author" content="Catherine Meyers">
+
+  
+  <meta name="description" content="Sometimes scraping can be a complete pain when the site you&rsquo;re dealing with is poorly structured. While trying to scrape composers and their &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://ccmeyers.github.io/blog/2014/08/13/zip-it">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="An Unexpected Coder" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+  
+
+</head>
+
+<body   class="collapse-sidebar sidebar-footer" >
+  <header role="banner">
+	<div class="header-title"><a href="/">An Unexpected Coder</a></div>
+
+
+	<br><div class="header-subtitle">opera singer turned web developer</div>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:ccmeyers.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+  
+    
+      <h1 class="entry-title">Zip It, and Zip It Good</h1>
+    
+  
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-13T19:42:16-04:00" pubdate data-updated="true">Aug 13<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Sometimes scraping can be a complete pain when the site you&rsquo;re dealing with is poorly structured. While trying to scrape composers and their respective musical pieces from a site, we ran into a problem because a composer&rsquo;s pieces were not nested within that composer. Enter the ZIP method, the coolest method I had never heard of that I found out about today.</p>
+
+<p>Here&rsquo;s an example of the html structure we were dealing with:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;div</span> <span class="na">lang=</span><span class="s">&quot;en&quot;</span> <span class="na">dir=</span><span class="s">&quot;ltr&quot;</span> <span class="na">class=</span><span class="s">&quot;mw-content-ltr&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;p&gt;&lt;b&gt;</span>Alejandre Prada, Manuel<span class="nt">&lt;/b&gt;&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nt">&lt;dl&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;dd&gt;</span>Suite, Op.44<span class="nt">&lt;/dd&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/dl&gt;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nt">&lt;p&gt;&lt;b&gt;</span>Barthe, Adrien<span class="nt">&lt;/b&gt;&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nt">&lt;dl&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;dd&gt;</span>Aubade<span class="nt">&lt;/dd&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/dl&gt;</span>
+</span><span class='line'><span class="nt">&lt;/div&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>It was easy to grab the composers and pieces seperately:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">composers</span> <span class="o">=</span> <span class="vi">@doc</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s1">&#39;div.mw-content-ltr p&#39;</span><span class="p">)</span>
+</span><span class='line'>  <span class="c1">#=&gt;[#&lt;Nokogiri::XML::Element:0x816eb2a8 name=&quot;p&quot; children=[#&lt;Nokogiri::XML::Element:0x816eb0c8 name=&quot;b&quot; children=[#&lt;Nokogiri::XML::Text:0x816eaee8 &quot;Alejandre Prada, Manuel&quot;&gt;]&gt;, #&lt;Nokogiri::XML::Text:0x816ead44 &quot;\n&quot;&gt;]&gt;, #&lt;Nokogiri::XML::Element:0x816ef894 name=&quot;p&quot; children=[#&lt;Nokogiri::XML::Element:0x816ef6b4 name=&quot;b&quot; children=[#&lt;Nokogiri::XML::Text:0x816ef4d4 &quot;Barthe, Adrien&quot;&gt;]</span>
+</span><span class='line'><span class="n">pieces</span> <span class="o">=</span> <span class="vi">@doc</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s1">&#39;div.mw-content-ltr dl&#39;</span><span class="p">)</span>
+</span><span class='line'>  <span class="c1">#=&gt;[#&lt;Nokogiri::XML::Element:0x816eaaec name=&quot;dl&quot; children=[#&lt;Nokogiri::XML::Element:0x816ea90c name=&quot;dd&quot; children=[#&lt;Nokogiri::XML::Text:0x816ea72c &quot; &quot;&gt;, #&lt;Nokogiri::XML::Element:0x816ea678 name=&quot;a&quot; attributes=[#&lt;Nokogiri::XML::Attr:0x816ea614 name=&quot;href&quot; value=&quot;/wiki/Suite,_Op.44_(Alejandre_Prada,_Manuel)&quot;&gt;, #&lt;Nokogiri::XML::Attr:0x816ea600 name=&quot;title&quot; value=&quot;Suite, Op.44 (Alejandre Prada, Manuel)&quot;&gt;, #&lt;Nokogiri::XML::Attr:0x816ea5ec name=&quot;class&quot; value=&quot;mw-redirect&quot;&gt;] children=[#&lt;Nokogiri::XML::Text:0x816efd80 &quot;Suite, Op.44&quot;&gt;]&gt;, #&lt;Nokogiri::XML::Text:0x816efbdc &quot;\n&quot;&gt;]&gt;]&gt;, #&lt;Nokogiri::XML::Element:0x816ef0d8 name=&quot;dl&quot; children=[#&lt;Nokogiri::XML::Element:0x816eeef8 name=&quot;dd&quot; children=[#&lt;Nokogiri::XML::Text:0x816eed18 &quot; &quot;&gt;, #&lt;Nokogiri::XML::Element:0x816eec64 name=&quot;a&quot; attributes=[#&lt;Nokogiri::XML::Attr:0x816eec00 name=&quot;href&quot; value=&quot;/wiki/Aubade_(Barthe,_Adrien)&quot;&gt;, #&lt;Nokogiri::XML::Attr:0x816eebec name=&quot;title&quot; value=&quot;Aubade (Barthe, Adrien)&quot;&gt;] children=[#&lt;Nokogiri::XML::Text:0x816ee5ac &quot;Aubade&quot;&gt;]&gt;, #&lt;Nokogiri::XML::Text:0x816ee408 &quot;\n&quot;&gt;]&gt;]&gt;,</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And iterate through them, putting the text into arrays:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">composers_names</span> <span class="o">=</span> <span class="n">composers</span><span class="o">.</span><span class="n">collect</span> <span class="p">{</span><span class="o">|</span><span class="n">e</span><span class="o">|</span><span class="n">e</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">gsub</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)}</span>
+</span><span class='line'>  <span class="c1">#=&gt;[&quot;Alejandre Prada, Manuel&quot;, &quot;Barthe, Adrien&quot;]</span>
+</span><span class='line'><span class="n">pieces_names</span> <span class="o">=</span> <span class="n">pieces</span><span class="o">.</span><span class="n">collect</span> <span class="p">{</span><span class="o">|</span><span class="n">e</span><span class="o">|</span><span class="n">e</span><span class="o">.</span><span class="n">text</span><span class="p">}</span>
+</span><span class='line'>  <span class="c1">#=&gt;[&quot; Suite, Op.44&quot;, &quot; Aubade&quot;]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Then, we had to put these two arrays back together! So&hellip;we zipped &lsquo;em!</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">composers_pieces</span> <span class="o">=</span> <span class="n">composers_names</span><span class="o">.</span><span class="n">zip</span><span class="p">(</span><span class="n">pieces_names</span><span class="p">)</span>
+</span><span class='line'>  <span class="c1">#=&gt;[[&quot;Alejandre Prada, Manuel&quot;, &quot; Suite, Op.44&quot;], [&quot;Barthe, Adrien&quot;, &quot; Aubade&quot;]]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Hooray! We now have paired the correct piece with the correct composer. All we had to do then was iterate through our arrays to create hashes: assigning array[0] as the key and array[1..-1] as the value. We needed [1..-1] because sometimes a composer has multiple pieces.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">composers_pieces</span><span class="o">.</span><span class="n">collect</span> <span class="p">{</span><span class="o">|</span><span class="n">array</span><span class="o">|</span> <span class="p">{</span><span class="n">array</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span> <span class="o">=&gt;</span> <span class="n">array</span><span class="o">[</span><span class="mi">1</span><span class="o">.</span><span class="n">.</span><span class="o">-</span><span class="mi">1</span><span class="o">]</span><span class="p">}}</span>
+</span><span class='line'>  <span class="c1">#=&gt; [{&quot;Alejandre Prada, Manuel&quot;=&gt;[&quot; Suite, Op.44&quot;]}, {&quot;Barthe, Adrien&quot;=&gt;[&quot; Aubade&quot;]}]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>From there it was easy to save the key as the composer and the value as that composer&rsquo;s piece. Thank you to my team members for their help with this today. Shout out to <a href="http://rebeccagreenblatt.github.io/">Rebecca Greenblatt</a> and <a href="http://wlowry88.github.io/">Will Lowry</a>!</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn"><a href="https://github.com/ccmeyers">Catherine Meyers</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-13T19:42:16-04:00" pubdate data-updated="true">Aug 13<span>th</span>, 2014</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://ccmeyers.github.io/blog/2014/08/13/zip-it/" data-via="" data-counturl="http://ccmeyers.github.io/blog/2014/08/13/zip-it/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/08/10/premature-ajaxulation/" title="Previous Post: Premature Ajaxulation">&laquo; Premature Ajaxulation</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/08/13/zip-it/">Zip It, and Zip it Good</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/08/10/premature-ajaxulation/">Premature Ajaxulation</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/25/iterators-schmiterators/">Iterators Schmiterators</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/11/first-post-6-dot-11-dot-14/">The Surprising Accessibility of Coding</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 -  Catherine Meyers <br/>
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a> + <a href="https://github.com/ioveracker/mnml">mnml</a>.
+	  
+  </span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
