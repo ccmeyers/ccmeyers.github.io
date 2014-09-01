@@ -4,7 +4,7 @@
   <title><![CDATA[An Unexpected Coder]]></title>
   <link href="http://ccmeyers.github.io/atom.xml" rel="self"/>
   <link href="http://ccmeyers.github.io/"/>
-  <updated>2014-08-13T20:28:49-04:00</updated>
+  <updated>2014-09-01T18:48:26-04:00</updated>
   <id>http://ccmeyers.github.io/</id>
   <author>
     <name><![CDATA[Catherine Meyers]]></name>
@@ -12,6 +12,47 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    
+    <title type="html"><![CDATA[Boot it Up, Baby]]></title>
+    <link href="http://ccmeyers.github.io/blog/2014/09/01/starting-a-simple-server/"/>
+    
+    <updated>2014-09-01T18:00:52-04:00</updated>
+    <id>http://ccmeyers.github.io/blog/2014/09/01/starting-a-simple-server</id>
+    
+    <content type="html"><![CDATA[<h2>How to Start a Simple Local Server</h2>
+
+<p>Sometimes when building a simple website, it&rsquo;s tempting to check your changes by viewing your file(s) in a browser. But have you ever gotten stuck when some of your more complicated code isn&rsquo;t working even though you KNOW IT SHOULD?!?!?!</p>
+
+<p>Maybe you&rsquo;re getting errors in the console like &ldquo;XMLHttpRequest cannot load file:&hellip; Cross origin requests are only supported for HTTP&rdquo;?</p>
+
+<p>Well, the problem might not be you. It might just be your not running a local server. This happened to me while working with AngularJS&rsquo;s custom directives and to a friend while working with popcorn.js.</p>
+
+<p>&ldquo;But I&rsquo;m not using Rails or Sinatra,&rdquo; you say?</p>
+
+<p>&ldquo;But I can&rsquo;t type &lsquo;shotgun&rsquo; or &lsquo;rails s&rsquo; into my terminal,&rdquo; you declare?</p>
+
+<p>Want to know a trick?</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>brew install python
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I know, it feels like you&rsquo;re cheating on Ruby. But, she&rsquo;ll never know, I swear.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>python -m SimpleHTTPServer 8000
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Then, just open up <a href="http://localhost:8000/">http://localhost:8000/</a> in your browser, and you&rsquo;ll be on your way!</p>
+
+<p>If your code still doesn&rsquo;t work while on this local server&hellip;it might just be your code. So&hellip;there&rsquo;s that.</p>
+]]></content>
+    
+  </entry>
   
   <entry>
     

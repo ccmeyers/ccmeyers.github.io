@@ -9,7 +9,7 @@
   <meta name="author" content="Catherine Meyers">
 
   
-  <meta name="description" content="Sometimes scraping can be a complete pain when the site you&rsquo;re dealing with is poorly structured. While trying to scrape composers and their &hellip;">
+  <meta name="description" content="How to Start a Simple Local Server Sometimes when building a simple website, it&rsquo;s tempting to check your changes by viewing your file(s) in a &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -66,6 +66,72 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+  
+    
+      <h1 class="entry-title"><a href="/blog/2014/09/01/starting-a-simple-server/">Boot It Up, Baby</a></h1>
+      
+      
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-09-01T18:00:52-04:00" pubdate data-updated="true">Sep 1<span>st</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>How to Start a Simple Local Server</h2>
+
+<p>Sometimes when building a simple website, it&rsquo;s tempting to check your changes by viewing your file(s) in a browser. But have you ever gotten stuck when some of your more complicated code isn&rsquo;t working even though you KNOW IT SHOULD?!?!?!</p>
+
+<p>Maybe you&rsquo;re getting errors in the console like &ldquo;XMLHttpRequest cannot load file:&hellip; Cross origin requests are only supported for HTTP&rdquo;?</p>
+
+<p>Well, the problem might not be you. It might just be your not running a local server. This happened to me while working with AngularJS&rsquo;s custom directives and to a friend while working with popcorn.js.</p>
+
+<p>&ldquo;But I&rsquo;m not using Rails or Sinatra,&rdquo; you say?</p>
+
+<p>&ldquo;But I can&rsquo;t type &lsquo;shotgun&rsquo; or &lsquo;rails s&rsquo; into my terminal,&rdquo; you declare?</p>
+
+<p>Want to know a trick?</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>brew install python
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I know, it feels like you&rsquo;re cheating on Ruby. But, she&rsquo;ll never know, I swear.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>python -m SimpleHTTPServer 8000
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Then, just open up <a href="http://localhost:8000/">http://localhost:8000/</a> in your browser, and you&rsquo;ll be on your way!</p>
+
+<p>If your code still doesn&rsquo;t work while on this local server&hellip;it might just be your code. So&hellip;there&rsquo;s that.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -499,6 +565,10 @@ In the future, most of my blog posts will be more technical, focusing on specifi
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/09/01/starting-a-simple-server/">Boot it Up, Baby</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/08/13/zip-it/">Zip It, and Zip it Good</a>

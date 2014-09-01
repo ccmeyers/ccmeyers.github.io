@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Flatiron&nbsp;School | An Unexpected Coder]]></title>
   <link href="http://ccmeyers.github.io/blog/categories/flatiron-school/atom.xml" rel="self"/>
   <link href="http://ccmeyers.github.io/"/>
-  <updated>2014-08-13T20:28:49-04:00</updated>
+  <updated>2014-09-01T18:48:26-04:00</updated>
   <id>http://ccmeyers.github.io/</id>
   <author>
     <name><![CDATA[Catherine Meyers]]></name>
@@ -12,6 +12,93 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Boot it Up, Baby]]></title>
+    <link href="http://ccmeyers.github.io/blog/2014/09/01/starting-a-simple-server/"/>
+    <updated>2014-09-01T18:00:52-04:00</updated>
+    <id>http://ccmeyers.github.io/blog/2014/09/01/starting-a-simple-server</id>
+    <content type="html"><![CDATA[<h2>How to Start a Simple Local Server</h2>
+
+<p>Sometimes when building a simple website, it&rsquo;s tempting to check your changes by viewing your file(s) in a browser. But have you ever gotten stuck when some of your more complicated code isn&rsquo;t working even though you KNOW IT SHOULD?!?!?!</p>
+
+<p>Maybe you&rsquo;re getting errors in the console like &ldquo;XMLHttpRequest cannot load file:&hellip; Cross origin requests are only supported for HTTP&rdquo;?</p>
+
+<p>Well, the problem might not be you. It might just be your not running a local server. This happened to me while working with AngularJS&rsquo;s custom directives and to a friend while working with popcorn.js.</p>
+
+<p>&ldquo;But I&rsquo;m not using Rails or Sinatra,&rdquo; you say?</p>
+
+<p>&ldquo;But I can&rsquo;t type &lsquo;shotgun&rsquo; or &lsquo;rails s&rsquo; into my terminal,&rdquo; you declare?</p>
+
+<p>Want to know a trick?</p>
+
+<p><code>bash
+brew install python
+</code>
+I know, it feels like you&rsquo;re cheating on Ruby. But, she&rsquo;ll never know, I swear.</p>
+
+<p><code>bash
+python -m SimpleHTTPServer 8000
+</code>
+Then, just open up <a href="http://localhost:8000/">http://localhost:8000/</a> in your browser, and you&rsquo;ll be on your way!</p>
+
+<p>If your code still doesn&rsquo;t work while on this local server&hellip;it might just be your code. So&hellip;there&rsquo;s that.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Zip It, and Zip it Good]]></title>
+    <link href="http://ccmeyers.github.io/blog/2014/08/13/zip-it/"/>
+    <updated>2014-08-13T19:42:16-04:00</updated>
+    <id>http://ccmeyers.github.io/blog/2014/08/13/zip-it</id>
+    <content type="html"><![CDATA[<p>Sometimes scraping can be a complete pain when the site you&rsquo;re dealing with is poorly structured. While trying to scrape composers and their respective musical pieces from a site, we ran into a problem because a composer&rsquo;s pieces were not nested within that composer. Enter the ZIP method, the coolest method I had never heard of that I found out about today.</p>
+
+<p>Here&rsquo;s an example of the html structure we were dealing with:
+```html</p>
+
+<div lang="en" dir="ltr" class="mw-content-ltr">
+  <p><b>Alejandre Prada, Manuel</b></p>
+
+  <dl>
+    <dd>Suite, Op.44</dd>
+  </dl>
+
+  <p><b>Barthe, Adrien</b></p>
+
+  <dl>
+    <dd>Aubade</dd>
+  </dl>
+</div>
+
+
+<p><code>
+It was easy to grab the composers and pieces seperately:
+</code>ruby
+composers = @doc.css(&lsquo;div.mw-content-ltr p&rsquo;)
+  #=>[#&lt;Nokogiri::XML::Element:0x816eb2a8 name=&ldquo;p&rdquo; children=[#&lt;Nokogiri::XML::Element:0x816eb0c8 name=&ldquo;b&rdquo; children=[#&lt;Nokogiri::XML::Text:0x816eaee8 &ldquo;Alejandre Prada, Manuel&rdquo;>]>, #&lt;Nokogiri::XML::Text:0x816ead44 &ldquo;\n&rdquo;>]>, #&lt;Nokogiri::XML::Element:0x816ef894 name=&ldquo;p&rdquo; children=[#&lt;Nokogiri::XML::Element:0x816ef6b4 name=&ldquo;b&rdquo; children=[#&lt;Nokogiri::XML::Text:0x816ef4d4 &ldquo;Barthe, Adrien&rdquo;>]
+pieces = @doc.css(&lsquo;div.mw-content-ltr dl&rsquo;)
+  #=>[#&lt;Nokogiri::XML::Element:0x816eaaec name=&ldquo;dl&rdquo; children=[#&lt;Nokogiri::XML::Element:0x816ea90c name=&ldquo;dd&rdquo; children=[#&lt;Nokogiri::XML::Text:0x816ea72c &ldquo; &rdquo;>, #&lt;Nokogiri::XML::Element:0x816ea678 name=&ldquo;a&rdquo; attributes=[#&lt;Nokogiri::XML::Attr:0x816ea614 name=&ldquo;href&rdquo; value=&ldquo;/wiki/Suite,<em>Op.44</em>(Alejandre_Prada,<em>Manuel)&rdquo;>, #&lt;Nokogiri::XML::Attr:0x816ea600 name=&ldquo;title&rdquo; value=&ldquo;Suite, Op.44 (Alejandre Prada, Manuel)&rdquo;>, #&lt;Nokogiri::XML::Attr:0x816ea5ec name=&ldquo;class&rdquo; value=&ldquo;mw-redirect&rdquo;>] children=[#&lt;Nokogiri::XML::Text:0x816efd80 &ldquo;Suite, Op.44&rdquo;>]>, #&lt;Nokogiri::XML::Text:0x816efbdc &ldquo;\n&rdquo;>]>]>, #&lt;Nokogiri::XML::Element:0x816ef0d8 name=&ldquo;dl&rdquo; children=[#&lt;Nokogiri::XML::Element:0x816eeef8 name=&ldquo;dd&rdquo; children=[#&lt;Nokogiri::XML::Text:0x816eed18 &ldquo; &rdquo;>, #&lt;Nokogiri::XML::Element:0x816eec64 name=&ldquo;a&rdquo; attributes=[#&lt;Nokogiri::XML::Attr:0x816eec00 name=&ldquo;href&rdquo; value=&ldquo;/wiki/Aubade</em>(Barthe,_Adrien)&rdquo;>, #&lt;Nokogiri::XML::Attr:0x816eebec name=&ldquo;title&rdquo; value=&ldquo;Aubade (Barthe, Adrien)&rdquo;>] children=[#&lt;Nokogiri::XML::Text:0x816ee5ac &ldquo;Aubade&rdquo;>]>, #&lt;Nokogiri::XML::Text:0x816ee408 &ldquo;\n&rdquo;>]>]>,
+<code>
+And iterate through them, putting the text into arrays:
+</code>ruby
+composers_names = composers.collect {|e|e.text.gsub(&ldquo;\n&rdquo;, &ldquo;&rdquo;)}
+  #=>[&ldquo;Alejandre Prada, Manuel&rdquo;, &ldquo;Barthe, Adrien&rdquo;]
+pieces_names = pieces.collect {|e|e.text}
+  #=>[&ldquo; Suite, Op.44&rdquo;, &ldquo; Aubade&rdquo;]
+<code>
+Then, we had to put these two arrays back together! So...we zipped 'em!
+</code>ruby
+composers_pieces = composers_names.zip(pieces_names)
+  #=>[[&ldquo;Alejandre Prada, Manuel&rdquo;, &ldquo; Suite, Op.44&rdquo;], [&ldquo;Barthe, Adrien&rdquo;, &ldquo; Aubade&rdquo;]]
+<code>
+Hooray! We now have paired the correct piece with the correct composer. All we had to do then was iterate through our arrays to create hashes: assigning array[0] as the key and array[1..-1] as the value. We needed [1..-1] because sometimes a composer has multiple pieces.
+</code>ruby
+composers_pieces.collect {|array| {array[0] => array[1..-1]}}
+  #=> [{&ldquo;Alejandre Prada, Manuel&rdquo;=>[&ldquo; Suite, Op.44&rdquo;]}, {&ldquo;Barthe, Adrien&rdquo;=>[&ldquo; Aubade&rdquo;]}]
+```
+From there it was easy to save the key as the composer and the value as that composer&rsquo;s piece. Thank you to my team members for their help with this today. Shout out to <a href="http://rebeccagreenblatt.github.io/">Rebecca Greenblatt</a> and <a href="http://wlowry88.github.io/">Will Lowry</a>!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Premature Ajaxulation]]></title>
