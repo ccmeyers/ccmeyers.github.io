@@ -3,7 +3,7 @@ layout: post
 title: "Zip It, and Zip it Good"
 date: 2014-08-13 19:42:16 -0400
 comments: true
-categories: 
+categories: "Flatiron&nbsp;School"
 ---
 Sometimes scraping can be a complete pain when the site you're dealing with is poorly structured. While trying to scrape composers and their respective musical pieces from a site, we ran into a problem because a composer's pieces were not nested within that composer. Enter the ZIP method, the coolest method I had never heard of that I found out about today.
 
