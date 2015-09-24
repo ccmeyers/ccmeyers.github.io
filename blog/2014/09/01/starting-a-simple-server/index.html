@@ -1,0 +1,252 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Boot it Up, Baby - An Unexpected Coder</title>
+  <meta name="author" content="Catherine Meyers">
+
+  
+  <meta name="description" content="How to Start a Simple Local Server Sometimes when building a simple website, it&rsquo;s tempting to check your changes by viewing your file(s) in a &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://anunexpectedcoder.com/blog/2014/09/01/starting-a-simple-server">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="An Unexpected Coder" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+  
+
+</head>
+
+<body   class="collapse-sidebar sidebar-footer" >
+  <header role="banner">
+	<div class="header-title"><a href="/">An Unexpected Coder</a></div>
+
+
+	<br><div class="header-subtitle">opera singer turned web developer</div>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:anunexpectedcoder.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+  
+    
+      <h1 class="entry-title">Boot It Up, Baby</h1>
+    
+  
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-09-01T18:00:52-04:00" pubdate data-updated="true">Sep 1<span>st</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h2>How to Start a Simple Local Server</h2>
+
+<p>Sometimes when building a simple website, it&rsquo;s tempting to check your changes by viewing your file(s) in a browser. But have you ever gotten stuck when some of your more complicated code isn&rsquo;t working even though you KNOW IT SHOULD?!?!?!</p>
+
+<p>Maybe you&rsquo;re getting errors in the console like &ldquo;XMLHttpRequest cannot load file:&hellip; Cross origin requests are only supported for HTTP&rdquo;?</p>
+
+<p>Well, the problem might not be you. It might just be your not running a local server. This happened to me while working with AngularJS&rsquo;s custom directives and to a friend while working with popcorn.js.</p>
+
+<p>&ldquo;But I&rsquo;m not using Rails or Sinatra,&rdquo; you say?</p>
+
+<p>&ldquo;But I can&rsquo;t type &lsquo;shotgun&rsquo; or &lsquo;rails s&rsquo; into my terminal,&rdquo; you declare?</p>
+
+<p>Want to know a trick?</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>brew install python
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I know, it feels like you&rsquo;re cheating on Ruby. But, she&rsquo;ll never know, I swear.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>python -m SimpleHTTPServer 8000
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Then, just open up <a href="http://localhost:8000/">http://localhost:8000/</a> in your browser, and you&rsquo;ll be on your way!</p>
+
+<p>If your code still doesn&rsquo;t work while on this local server&hellip;it might just be your code. So&hellip;there&rsquo;s that.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Catherine Meyers</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-09-01T18:00:52-04:00" pubdate data-updated="true">Sep 1<span>st</span>, 2014</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/flatiron-school/'>Flatiron&nbsp;School</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://anunexpectedcoder.com/blog/2014/09/01/starting-a-simple-server/" data-via="" data-counturl="http://anunexpectedcoder.com/blog/2014/09/01/starting-a-simple-server/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/08/13/zip-it/" title="Previous Post: Zip It, and Zip it Good">&laquo; Zip It, and Zip it Good</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2015/09/23/slide-slide-slippity-slide/" title="Next Post: Slide Slide Slippity Slide">Slide Slide Slippity Slide &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/09/23/slide-slide-slippity-slide/">Slide Slide Slippity Slide</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/09/01/starting-a-simple-server/">Boot it Up, Baby</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/08/13/zip-it/">Zip It, and Zip it Good</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/08/10/premature-ajaxulation/">Premature Ajaxulation</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/25/iterators-schmiterators/">Iterators Schmiterators</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 -  Catherine Meyers <br/>
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a> + <a href="https://github.com/ioveracker/mnml">mnml</a>.
+	  
+  </span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
