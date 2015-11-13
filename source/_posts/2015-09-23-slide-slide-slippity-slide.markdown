@@ -6,12 +6,14 @@ comments: true
 categories: "JavaScript"
 ---
 
-##How to Create a Slide Presentation in 150 Lines of JavaScript
+##How to Create a Slide Presentation in less than 200 Lines of JavaScript
 
 
 Recently a client needed a website that could be used both as a presentation tool (like a Keynote or PowerPoint presentation) and as a stand-alone website to be sent to possible investors to scroll through.
 
 There are a lot of great libraries out there that help you mimic the functionality of a Keynote presentation. I took a look at <a href="http://flowtime-js.marcolago.com/" target="_blank">flowtime</a>, <a href="http://lab.hakim.se/reveal-js/#/" target="_blank">reveal.js</a>, and <a href="http://impress.github.io/impress.js/#/bored" target="_blank">impress.js</a>. But, these libraries are big and seemed like overkill for what I needed to do. Also, I really wanted to see if I could build this on my own.
+
+(If you want to jump ahead to the finished product, here's <a href="http://slide-presentation.divshot.io/" target="_blank">an example</a> of what I built along with <a href="https://github.com/ccmeyers/slide-presentation" target="_blank">the code on github</a>.)
 
 First I made my panels. I broke up the site into sections (literally -- using `<section></section>` tags) and made each section `height = 100vh`. Actually, I had to make room for my fixed nav up top, so it was really `height = calc(100vh - 103)`. Now that I had things looking the way they should, I needed to make them act the way they should.
 
@@ -20,30 +22,31 @@ I soon realized that my biggest challenge was to designate which section was the
 <a href="http://imakewebthings.com/waypoints/" target="_blank">Waypoints</a> is a great library that lets you trigger a function on scroll. I could make each section have its own waypoint where it gets the class 'currentPanel' as soon as it's almost to the top of the screen.
 
 ```javascript
-getCurrentPanel: function() {
   $('section').each(function(){
-    var index = $(this).index();
-    var nextIndex = index + 1;
-    var prevIndex = index - 1;
+    var index = $(this).index('section'),
+        currentSection = $('.section'+index),
+        nextSection = currentSection.next(),
+        prevSection = currentSection.prev();
+        currentPanelClass = 'current-panel';
     var waypointsDown = new Waypoint({
-      element: $('.section'+index),
+      element: currentSection,
       handler: function(direction) {
         if (direction === 'down') {
-          $('.section'+index).addClass('currentPanel');
-          if (prevIndex > 0) {
-            $('.section'+prevIndex).removeClass('currentPanel');
+          currentSection.addClass(currentPanelClass);
+          if (prevSection.length > 0) {
+            prevSection.removeClass(currentPanelClass);
           }
         }
       },
       offset: 200
     });
     var waypointsUp = new Waypoint({
-      element: $('.section'+index),
+      element: currentSection,
       handler: function(direction) {
         if (direction === 'up') {
-          $('.section'+index).addClass('currentPanel');
-          if ($('.section'+index).length > 0) {
-            $('.section'+nextIndex).removeClass('currentPanel');
+          currentSection.addClass(currentPanelClass);
+          if (currentSection.length > 0) {
+            nextSection.removeClass(currentPanelClass);
           }
         }
       },
@@ -53,7 +56,7 @@ getCurrentPanel: function() {
 }
 ```
 
-In that function, I'm looping through all the sections and assigning a waypoint to each based on its index. I set up my HTML so that each section had a class based on its position (i.e. the first section has a class of 'section1'). As you're scrolling down, a section will get the class 'currentPanel' when it's 200px from the top. On the way back up, a section would get that class 100px from the top. I'm also making sure that as the 'currentPanel' class is added to one section, it is removed from the section that just had it.
+In that function, I'm looping through all the sections and assigning a waypoint to each based on its index. I set up my HTML so that each `<section>` had a class based on its position (i.e. the first section has a class of 'section0'). As you're scrolling down, a section will get the class 'currentPanel' when it's 200px from the top. On the way back up, a section would get that class 100px from the top. I'm also making sure that as the 'currentPanel' class is added to one section, it is removed from the section that just had it.
 
 Now that I could find the current panel, I needed to designate next and previous panels and animate the scroll.
 
@@ -65,18 +68,18 @@ scrollToElement: function(panel) {
 },
 
 findNext: function() {
-  var that = this;
-  var $currentPanel = $('.currentPanel');
-  var nextPanel = $currentPanel.nextAll('section');
+  var that = this,
+      currentPanel = $('.current-panel'),
+      nextPanel = currentPanel.next('section');
   if (nextPanel.length > 0) {
     that.scrollToElement(nextPanel);
   }
 },
 
 findPrev: function() {
-  var that = this;
-  var $currentPanel = $('.currentPanel');
-  var prevPanel = $currentPanel.prevAll('section');
+  var that = this,
+      currentPanel = $('.current-panel'),
+      prevPanel = currentPanel.prev('section');
   if (prevPanel.length > 0) {
     that.scrollToElement(prevPanel);
   }
@@ -89,10 +92,10 @@ slider: function(e) {
   var that = this;
   $(document).on('keydown', function(e){
     var $currentPanel = $('.currentPanel');
-    if (e.keyCode === 40 || e.keyCode === 32 || e.keyCode === 13  || e.keyCode === 34) {
+    if (e.keyCode === 40 || e.keyCode === 32 || e.keyCode === 13  || e.keyCode === 34 || e.keyCode === 39) {
       e.preventDefault();
       that.findNext();
-    } else if (e.keyCode === 38 || e.keyCode === 33) {
+    } else if (e.keyCode === 38 || e.keyCode === 33 || e.keyCode === 37) {
       e.preventDefault();
       that.findPrev();
     }
@@ -106,51 +109,55 @@ On to what I call 'fragmented' panels. By this I mean sections that call for a h
 
 ```javascript
 fragmentedPanel: function(movement) {
-  var that = this;
-  var currentFragmentedPanel = $('.currentPanel.fragmented');
-  var currentFragmentedParts = currentFragmentedPanel.find('.fragmented-part.active');
+  var that = this,
+      currentFragmentedPanel = $('.current-panel.fragmented'),
+      currentFragmentedParts = currentFragmentedPanel.find('.fragmented-part.active');
   currentFragmentedParts.each(function(){
-    var fragmentIndex = $(this).index();
-    var nextFragment = fragmentIndex + 1;
-    var prevFragment = fragmentIndex - 1;
-    var checkForLast = fragmentIndex + 2;
-    var checkForFirst = fragmentIndex - 2;
-    if (movement === 'down') {
-      if ($('.currentPanel .fragmented-part.part'+nextFragment).length > 0) {
-        if ($('.currentPanel .fragmented-part.part'+checkForLast).length > 0) {
-          currentFragmentedParts.removeClass('active');
-          $('.currentPanel .fragmented-part.part'+nextFragment).addClass('active');
-          currentFragmentedPanel.removeClass('first-fragment');
-          currentFragmentedPanel.removeClass('last-fragment');
-        } else {
-          currentFragmentedParts.removeClass('active');
-          $('.currentPanel .fragmented-part.part'+nextFragment).addClass('active');
-          currentFragmentedPanel.removeClass('first-fragment');
-          currentFragmentedPanel.addClass('last-fragment');
-        }
+    var fragmentIndex = $(this).index('.current-panel .fragmented-part'),
+        nextFragment = $('.current-panel .fragmented-part.part'+fragmentIndex).next(),
+        prevFragment = $('.current-panel .fragmented-part.part'+fragmentIndex).prev(),
+        checkForLast = nextFragment.next(),
+        checkForFirst = fragmentIndex - 2;
+    if (movement === 'down' && nextFragment.length > 0) {
+      if (checkForLast.length > 0) {
+        currentFragmentedParts.removeClass('active');
+        nextFragment.addClass('active');
+        currentFragmentedPanel.removeClass('first-fragment');
+        currentFragmentedPanel.removeClass('last-fragment');
+      } else {
+        currentFragmentedParts.removeClass('active');
+        nextFragment.addClass('active');
+        currentFragmentedPanel.removeClass('first-fragment');
+        currentFragmentedPanel.addClass('last-fragment');
       }
-    } else if (movement === 'up') {
-      if (prevFragment >= 0) {
-        if (checkForFirst >= 0) {
-          currentFragmentedParts.removeClass('active');
-          $('.currentPanel .fragmented-part.part'+prevFragment).addClass('active');
-          currentFragmentedPanel.removeClass('first-fragment');
-          currentFragmentedPanel.removeClass('last-fragment');
-        } else {
-          currentFragmentedParts.removeClass('active');
-          $('.currentPanel .fragmented-part.part'+prevFragment).addClass('active');
-          currentFragmentedPanel.removeClass('last-fragment');
-          currentFragmentedPanel.addClass('first-fragment');
-        }
+    } else if (movement === 'up' && prevFragment.length > 0) {
+      if (checkForFirst >= 0) {
+        currentFragmentedParts.removeClass('active');
+        prevFragment.addClass('active');
+        currentFragmentedPanel.removeClass('first-fragment').removeClass('last-fragment');
+      } else {
+        currentFragmentedParts.removeClass('active');
+        prevFragment.addClass('active');
+        currentFragmentedPanel.removeClass('last-fragment').addClass('first-fragment');
       }
     }
   });
 }
 ```
 
-For this code to work, you need to set up your HTML with certain classes. The 'section' will need to get the class 'fragmented'. The parts within that fragmented section need to get two classes: 'fragmented-part' and part+index (i.e. 'part1').
+For this code to work, you need to set up your HTML with certain classes. The 'section' will need to get the classes 'fragmented' and 'first-fragment'. The parts within that fragmented section need to get two classes: 'fragmented-part' and part+index (i.e. 'part0'). Here's an example of how to set up the HTML:
 
-So here's a weird thing I ran into working with a DOM element's index. When I looped through the fragmented parts' indices, the first element had an index of 0. That's to be expected. However, when I looped through the sections, the first section had an index of 1. I have no idea why that is happening. If anyone knows, please enlighten me. But for now, I'm just labeling the first section with 'section1' while the first fragmented-part gets 'part0'.
+```html
+<section class="section0">
+  <!-- this is a slide without fragments -->
+</section>
+<section class="section1 fragmented first-fragment">
+  <!-- this is a slide with fragments -->
+  <div class="fragmented-part part0 active"></div>
+  <div class="fragmented-part part1"></div>
+  <div class="fragmented-part part2"></div>
+</section>
+```
 
 A big thing in the fragmentedPanel function is to know when you're reaching the end of the fragmented-parts so you can move on to the next slide. That's why I have the 'checkForLast' and 'checkForFirst' variables. With every movement, I'm checking to see if an element exists in the next slot.
 
@@ -159,24 +166,21 @@ Great, now we need to update our slider function to halt movement if we see a 'f
 ```javascript
 slider: function(e) {
   var that = this;
-  var movement;
   $(document).on('keydown', function(e){
     var $currentPanel = $('.currentPanel');
-    if (e.keyCode === 40 || e.keyCode === 32 || e.keyCode === 13  || e.keyCode === 34) {
+    if (e.keyCode === 40 || e.keyCode === 32 || e.keyCode === 13  || e.keyCode === 34 || e.keyCode === 39) {
       e.preventDefault();
-      if ( !($currentPanel.hasClass('fragmented')) || $currentPanel.hasClass('last-fragment') ) {
+      if (currentPanel.hasClass('fragmented') && !(currentPanel.hasClass('last-fragment'))) {
+        that.fragmentedPanel('down');
+      } else {
         that.findNext();
-      } else {
-        movement = 'down';
-        that.fragmentedPanel(movement);
       }
-    } else if (e.keyCode === 38 || e.keyCode === 33) {
+    } else if (e.keyCode === 38 || e.keyCode === 33 || e.keyCode === 37) {
       e.preventDefault();
-      if ( !($currentPanel.hasClass('fragmented')) || $currentPanel.hasClass('first-fragment') ) {
-        that.findPrev();
+      if ( currentPanel.hasClass('fragmented') && !(currentPanel.hasClass('first-fragment')) ) {
+        that.fragmentedPanel('up');
       } else {
-        movement = 'up';
-        that.fragmentedPanel(movement);
+        that.findPrev();
       }
     }
   });
