@@ -3,7 +3,10 @@ layout: post
 title: "Premature Ajaxulation"
 date: 2014-08-10 00:01:10 -0400
 comments: true
-categories: "Flatiron&nbsp;School"
+categories:
+- Flatiron&nbsp;School
+- ajax
+- JavaScript
 ---
 
 ##Don't worry, it happens to a lot of functions

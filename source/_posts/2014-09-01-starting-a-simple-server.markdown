@@ -3,7 +3,11 @@ layout: post
 title: "Boot it Up, Baby"
 date: 2014-09-01 18:00:52 -0400
 comments: true
-categories: "Flatiron&nbsp;School"
+categories:
+- Flatiron&nbsp;School
+- Python
+- Server
+- Simple Server
 ---
 ##How to Start a Simple Local Server
 

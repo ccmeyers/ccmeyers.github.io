@@ -3,7 +3,11 @@ layout: post
 title: "Slide Slide Slippity Slide"
 date: 2015-09-23 16:47:44 -0400
 comments: true
-categories: "JavaScript"
+categories:
+- JavaScript
+- Waypoints
+- Keynote
+- PowerPoint
 ---
 
 ##How to Create a Slide Presentation in less than 200 Lines of JavaScript

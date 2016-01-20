@@ -3,7 +3,10 @@ layout: post
 title: "The Surprising Accessibility of Coding"
 date: 2014-06-11 23:44:16 -0400
 comments: true
-categories: "Flatiron&nbsp;School"
+categories:
+- Flatiron&nbsp;School
+- Web&nbsp;Developer
+- Opera&nbsp;Singer
 ---
 If you had come up to me a year ago and told me that I would become a web developer, I would have laughed in your face…hard. But here I am, after having a career as a professional opera singer, learning Ruby, a back-end web programming language used to develop some pretty complex web applications. And I’m actually liking it.
 <p>

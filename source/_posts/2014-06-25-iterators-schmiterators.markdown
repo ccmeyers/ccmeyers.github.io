@@ -3,7 +3,10 @@ layout: post
 title: "Iterators Schmiterators"
 date: 2014-06-25 15:32:49 -0400
 comments: true
-categories: "Flatiron&nbsp;School"
+categories:
+- Flatiron&nbsp;School
+- Ruby
+- array
 ---
 ##Choosing Between Each, Map, Collect, Select, or Detect
 
