@@ -13,7 +13,7 @@ Recently a client needed a website that could be used both as a presentation too
 
 There are a lot of great libraries out there that help you mimic the functionality of a Keynote presentation. I took a look at <a href="http://flowtime-js.marcolago.com/" target="_blank">flowtime</a>, <a href="http://lab.hakim.se/reveal-js/#/" target="_blank">reveal.js</a>, and <a href="http://impress.github.io/impress.js/#/bored" target="_blank">impress.js</a>. But, these libraries are big and seemed like overkill for what I needed to do. Also, I really wanted to see if I could build this on my own.
 
-(If you want to jump ahead to the finished product, here's <a href="http://slide-presentation.divshot.io/" target="_blank">an example</a> of what I built along with <a href="https://github.com/ccmeyers/slide-presentation" target="_blank">the code on github</a>.)
+(If you want to jump ahead to the finished product, here's <a href="http://anunexpectedcoder.com/slide-presentation/" target="_blank">an example</a> of what I built along with <a href="https://github.com/ccmeyers/slide-presentation" target="_blank">the code on github</a>.)
 
 First I made my panels. I broke up the site into sections (literally -- using `<section></section>` tags) and made each section `height = 100vh`. Actually, I had to make room for my fixed nav up top, so it was really `height = calc(100vh - 103)`. Now that I had things looking the way they should, I needed to make them act the way they should.
 
@@ -187,7 +187,7 @@ slider: function(e) {
 }
 ```
 
-That's pretty much it. I hope this makes some kind of sense to you. You can take a look at the <a href="https://github.com/ccmeyers/slide-presentation" target="_blank">full code here</a> and a <a href="http://slide-presentation.divshot.io/" target="_blank">demo here</a>.
+That's pretty much it. I hope this makes some kind of sense to you. You can take a look at the <a href="https://github.com/ccmeyers/slide-presentation" target="_blank">full code here</a> and a <a href="http://anunexpectedcoder.com/slide-presentation/" target="_blank">demo here</a>.
 
 And in honor of this blog post's title. I leave you with a little Coolio circa 1994.
 
