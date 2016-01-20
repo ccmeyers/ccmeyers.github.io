@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Neat | An Unexpected Coder]]></title>
+  <link href="http://anunexpectedcoder.com/blog/categories/neat/atom.xml" rel="self"/>
+  <link href="http://anunexpectedcoder.com/"/>
+  <updated>2016-01-20T11:48:42-05:00</updated>
+  <id>http://anunexpectedcoder.com/</id>
+  <author>
+    <name><![CDATA[Catherine Meyers]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Don't Fence Me In: How to use Gulp with Shopify and Timber to Gain Control of Your Front End]]></title>
+    <link href="http://anunexpectedcoder.com/blog/2015/12/03/dont-fence-me-in-how-to-use-gulp-with-shopify-and-timber-to-gain-control-of-your-front-end/"/>
+    <updated>2015-12-03T11:59:01-05:00</updated>
+    <id>http://anunexpectedcoder.com/blog/2015/12/03/dont-fence-me-in-how-to-use-gulp-with-shopify-and-timber-to-gain-control-of-your-front-end</id>
+    <content type="html"><![CDATA[<p>For my first Shopify project, I decided to use the <a href="http://shopify.github.io/Timber/" target="_blank">Timber</a> framework to help with my theme development. I think it&rsquo;s a great way to get your theme started fast with the right setup. However, I hated the lack of organization and control of your front end code. Everything was dumped in the &lsquo;assets&rsquo; folder. Images and JS files and SCSS files all thrown in together? I think not! Plus I wasn&rsquo;t a huge fan their grid system and wanted to use <a href="http://neat.bourbon.io/" target="_blank">Bourbon Neat</a>, which is my favorite grid system. But here&rsquo;s what Timber has to say about imports and mixins and Bourbon Neat:</p>
+
+<blockquote><p>You cannot use @imports in a Sass liquid file. That means no dependence on Compass, Bourbon or similar Sass frameworks.</p></blockquote>
+
+<p>Don&rsquo;t tell me what to do Timber! I&rsquo;m a grown woman, and I&rsquo;ll use Bourbon if I want to!</p>
+
+<p>So, I set out to set up my shopify-theme to be able to precompile assets locally. There&rsquo;s a bunch of documentation and blog posts on how to use Grunt to do this, but I like Gulp better&hellip;so I decided to figure that out.</p>
+
+<p>First, create your project. In your terminal:
+<code>mkdir my-shopify-shop</code>
+<code>cd my-shopify-shop</code></p>
+
+<p>Then bring in Timber:
+<code>git clone https://github.com/Shopify/Timber.git</code></p>
+
+<p>Then make yourself a folder where you&rsquo;ll put all your precompiled assets. I named mine &lsquo;lib&rsquo;:
+<code>mkdir lib</code>
+<code>cd lib</code>
+<code>mkdir js scss images</code></p>
+
+<p>Here&rsquo;s what your file structure looks like so far:
+<code>
+my-shopify-shop
+├── lib
+│   └── images
+│   └── js
+│   └── scss
+├── Timber
+│   └── All the automatically installed Timber stuff (assets, config, layout, etc.)
+</code></p>
+
+<p>Next let&rsquo;s start our gulp configuration. We need it to do the following:
+1. Compile our scss and js files
+2. Optimize images
+3. Watch for changes
+4. Upload any changes to Shopify</p>
+
+<p>One disclaimer before we start. Say good-bye to livereload right now. Shed some tears and move on, cuz it ain&rsquo;t gonna work (at least that I&rsquo;ve tried). This is because we&rsquo;re working from Shopify&rsquo;s servers and not our own local environment. Our changes have to be pushed up to Shopfiy, then you have to make a hard refresh to see the changes. I know. Life is hard.</p>
+
+<p>Go back to the root <code>cd ..</code> and <code>touch gulpfile.js</code></p>
+
+<p>You&rsquo;re also going to have to create a &lsquo;package.json&rsquo; for all your node_modules.
+<code>npm init</code> and press enter through all the prompts until it&rsquo;s created.</p>
+
+<p>Let&rsquo;s start with uploading changes to Shopify.
+<code>npm install --global gulp</code>
+<code>npm install --save-dev gulp gulp-watch gulp-shopify-upload</code>
+That&rsquo;s going to install both <a href="https://github.com/gulpjs/gulp/blob/master/docs/getting-started.md" target="_blank">gulp</a>, <a href="https://www.npmjs.com/package/gulp-watch" target="_blank"></a>, and <a href="https://github.com/mikenorthorp/gulp-shopify-upload" target="_blank">gulp-shopify-upload</a></p>
+
+<p>Go into your Shopify admin panel and create a <a href="http://docs.shopify.com/api/authentication/creating-a-private-app" target="_blank">private app</a>. Create a file called <code>config.json</code> in your root and put your Shopify API credentials in there. It should look something like this (but obviously with all your credentials):</p>
+
+<p>config.json
+<code>json
+{
+  "shopify_api_key": "whateveryourapikeyishere",
+  "shopify_api_password": "whateveryourapipasswordishere",
+  "shopify_url": "YOUR-STORE-NAME.myshopify.com"
+}
+</code>
+You can also add your theme id if you&rsquo;re using one. Don&rsquo;t forget to add <code>config.json</code> to your <code>.gitignore</code>!!!! You don&rsquo;t want to be sharing your Shopify API credentials with the world.</p>
+
+<p>Now let&rsquo;s create a task for gulp-shopify-upload.
+```javascript
+// Gulp plugin setup
+var gulp = require(&lsquo;gulp&rsquo;);
+// Watches single files
+var watch = require(&lsquo;gulp-watch&rsquo;);
+var gulpShopify = require(&lsquo;gulp-shopify-upload&rsquo;);
+// Grabs your API credentials
+var config = require(&lsquo;config.json&rsquo;);</p>
+
+<p>gulp.task(&lsquo;shopifywatch&rsquo;, function() {
+  var options = {</p>
+
+<pre><code>"basePath": "./Timber/"
+</code></pre>
+
+<p>  };</p>
+
+<p>  return watch(&lsquo;./Timber/+(assets|layout|config|snippets|templates|locales)/**&rsquo;)
+  .pipe(gulpShopify(config.shopify_api_key, config.shopify_api_password, config.shopify_url, null, options));
+});</p>
+
+<p>// Default gulp action when gulp is run
+gulp.task(&lsquo;default&rsquo;, [
+  &lsquo;shopifywatch&rsquo;
+]);
+```</p>
+
+<p>Notice a few things here. We changed the url for the watch command to go one level deeper since we&rsquo;re changing the file structure from the example given in gulp-shopify-upload&rsquo;s docs. And we have to add the option for basePath for the same reason. Also, we&rsquo;ve moved all our API credentials into a secret config.json file that we&rsquo;ll require at the top.</p>
+
+<p>Now if you run <code>gulp</code> in your terminal, it&rsquo;ll watch for any changes. Go ahead and make a change to one of the templates. You&rsquo;ll see it say &lsquo;Upload Complete&rsquo; in the terminal. But remember, you&rsquo;ll have to do a hard refresh in order to see the change in your browser. Did a single tear just fall down your cheek? I know. Me too.</p>
+
+<p>Next we&rsquo;ll want to precompile our scss and spit the compiled file into Timber&rsquo;s assets folder. Also, I&rsquo;m going to include Bourbon Neat here along with some handy error handling.</p>
+
+<p><code>npm install --save-dev gulp-sass gulp-autoprefixer gulp-notify node-bourbon node-neat</code></p>
+
+<p>Add to your gulpfile:
+```javascript
+// Compiles SCSS files
+var sass         = require(&lsquo;gulp-sass&rsquo;);
+var autoprefixer = require(&lsquo;gulp-autoprefixer&rsquo;);
+// Notifies of errors
+var notify = require(&ldquo;gulp-notify&rdquo;);
+// Includes the Bourbon Neat libraries
+var neat         = require(&lsquo;node-neat&rsquo;).includePaths;</p>
+
+<p>function handleErrors() {
+  var args = Array.prototype.slice.call(arguments);</p>
+
+<p>  // Send error to notification center with gulp-notify
+  notify.onError({</p>
+
+<pre><code>title: "Compile Error",
+message: "&lt;%= error %&gt;"
+</code></pre>
+
+<p>  }).apply(this, args);</p>
+
+<p>  // Keep gulp from hanging on this task
+  this.emit(&lsquo;end&rsquo;);
+}</p>
+
+<p>gulp.task(&lsquo;sass&rsquo;, function () {
+  gulp.src(&lsquo;./lib/scss/*.{sass,scss}&rsquo;)</p>
+
+<pre><code>.pipe(sass({includePaths: neat}))
+.on('error', handleErrors)
+.pipe(autoprefixer({ browsers: ['last 2 version'] }))
+.pipe(gulp.dest('./Timber/assets'));
+</code></pre>
+
+<p>});</p>
+
+<p>gulp.task(&lsquo;watch&rsquo;, function () {
+  gulp.watch(&lsquo;./lib/scss/<em>*/</em>.{sass,scss}&rsquo;, [&lsquo;sass&rsquo;]);
+});
+```</p>
+
+<p>And add it to the default task:
+<code>javascript
+gulp.task('default', [
+  'shopifywatch', 'watch'
+]);
+</code></p>
+
+<p>Change the stylesheet tag in Timber&rsquo;s template to point to your compiled file instead of the default &lsquo;timber.scss.css&rsquo;. For me it&rsquo;s on line 31 of <code>layout/theme.liquid</code>.</p>
+
+<p>Now to compile our JavaScript files. For this we&rsquo;re using <a href="http://browserify.org/", target="_blank">browserify</a>, <a href="https://github.com/substack/watchify" target="_blank">watchify</a>, and <a href="https://www.npmjs.com/package/vinyl-source-stream" target="_blank">vinyl-source-stream</a>. Keep in mind, this is a pretty simple gulpfile. You can really beef this up, especially when it comes to browserify.</p>
+
+<p><code>npm install --save-dev browserify watchify vinyl-source-stream</code></p>
+
+<p>Add to your gulpfile:
+```javascript
+// Concats your JS files
+var browserify = require(&lsquo;browserify&rsquo;);
+var watchify = require(&lsquo;watchify&rsquo;);
+var source = require(&lsquo;vinyl-source-stream&rsquo;);</p>
+
+<p>gulp.task(&lsquo;browserify&rsquo;, function() {
+  return browserify(&lsquo;./lib/js/app.js&rsquo;)</p>
+
+<pre><code>  .bundle()
+  .on('error', handleErrors)
+  //Pass desired output filename to vinyl-source-stream
+  .pipe(source('bundle.js'))
+  // Start piping stream to tasks!
+  .pipe(gulp.dest('./Timber/assets/'));
+</code></pre>
+
+<p>});
+```</p>
+
+<p>And add this to your watch task:
+```javascript
+gulp.task(&lsquo;watch&rsquo;, function () {
+  gulp.watch(&lsquo;./lib/scss/<strong>/*.{sass,scss}&rsquo;, [&lsquo;sass&rsquo;]);
+  gulp.watch(&lsquo;./lib/js/</strong>/*.js&rsquo;, [&lsquo;browserify&rsquo;]);</p>
+
+<p>  var watcher = watchify(browserify({</p>
+
+<pre><code>// Specify the entry point of your app
+entries: ['./lib/js/app.js'],
+debug: true,
+cache: {}, packageCache: {}, fullPaths: true
+</code></pre>
+
+<p>  }));</p>
+
+<p>  return watcher.on(&lsquo;update&rsquo;, function() {</p>
+
+<pre><code>watcher.bundle()
+  .pipe(source('bundle.js'))
+  .pipe(gulp.dest('./Timber/assets/'))
+</code></pre>
+
+<p>  })
+});
+```</p>
+
+<p>Add another script tag below the one calling for <code>timber.js</code> (for me it&rsquo;s at line 379) to call for your bundled js <code>bundle.js</code> in <code>layout/theme.liquid</code>.</p>
+
+<p>Now let&rsquo;s opmtimize our images. For that we use <a href="https://github.com/sindresorhus/gulp-imagemin" target="_blank">gulp-imagemin</a> and <a href="https://www.npmjs.com/package/gulp-changed" target="_blank">gulp-changed</a>.</p>
+
+<p><code>npm install --save-dev gulp-imagemin gulp-changed</code></p>
+
+<p>Add this to your gulpfile:
+```javascript
+var imagemin   = require(&lsquo;gulp-imagemin&rsquo;);
+var changed    = require(&lsquo;gulp-changed&rsquo;);</p>
+
+<p>gulp.task(&lsquo;images&rsquo;, function() {
+  return gulp.src(&lsquo;./lib/images/**&rsquo;)</p>
+
+<pre><code>.pipe(changed('./Timber/assets/')) // Ignore unchanged files
+.pipe(imagemin()) // Optimize
+.pipe(gulp.dest('./Timber/assets/'))
+</code></pre>
+
+<p>});
+```</p>
+
+<p>And add <code>gulp.watch('lib/images/*.{jpg,jpeg,png,gif,svg}', ['images']);</code> to your gulp watch task.</p>
+
+<p>If you&rsquo;re using local font files, you&rsquo;ll also want to add a fonts taks that will throw your font files in Timber&rsquo;s asset folder as well.</p>
+
+<p>You can check out a finished example of this code <a href="https://github.com/ccmeyers/shopify-timber-gulp-setup" target="_blank">here</a>.</p>
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Simple Server | An Unexpected Coder]]></title>
+  <link href="http://anunexpectedcoder.com/blog/categories/simple-server/atom.xml" rel="self"/>
+  <link href="http://anunexpectedcoder.com/"/>
+  <updated>2016-01-20T11:48:42-05:00</updated>
+  <id>http://anunexpectedcoder.com/</id>
+  <author>
+    <name><![CDATA[Catherine Meyers]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Boot it Up, Baby]]></title>
+    <link href="http://anunexpectedcoder.com/blog/2014/09/01/starting-a-simple-server/"/>
+    <updated>2014-09-01T18:00:52-04:00</updated>
+    <id>http://anunexpectedcoder.com/blog/2014/09/01/starting-a-simple-server</id>
+    <content type="html"><![CDATA[<h2>How to Start a Simple Local Server</h2>
+
+<p>Sometimes when building a simple website, it&rsquo;s tempting to check your changes by viewing your file(s) in a browser. But have you ever gotten stuck when some of your more complicated code isn&rsquo;t working even though you KNOW IT SHOULD?!?!?!</p>
+
+<p>Maybe you&rsquo;re getting errors in the console like &ldquo;XMLHttpRequest cannot load file:&hellip; Cross origin requests are only supported for HTTP&rdquo;?</p>
+
+<p>Well, the problem might not be you. It might just be your not running a local server. This happened to me while working with AngularJS&rsquo;s custom directives and to a friend while working with popcorn.js.</p>
+
+<p>&ldquo;But I&rsquo;m not using Rails or Sinatra,&rdquo; you say?</p>
+
+<p>&ldquo;But I can&rsquo;t type &lsquo;shotgun&rsquo; or &lsquo;rails s&rsquo; into my terminal,&rdquo; you declare?</p>
+
+<p>Want to know a trick?</p>
+
+<p><code>bash
+brew install python
+</code>
+I know, it feels like you&rsquo;re cheating on Ruby. But, she&rsquo;ll never know, I swear.</p>
+
+<p><code>bash
+python -m SimpleHTTPServer 8000
+</code>
+Then, just open up <a href="http://localhost:8000/">http://localhost:8000/</a> in your browser, and you&rsquo;ll be on your way!</p>
+
+<p>If your code still doesn&rsquo;t work while on this local server&hellip;it might just be your code. So&hellip;there&rsquo;s that.</p>
+]]></content>
+  </entry>
+  
+</feed>

@@ -2,27 +2,33 @@
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
         <loc>http://anunexpectedcoder.com/blog/2014/06/11/first-post-6-dot-11-dot-14/</loc>
-        <lastmod>2015-09-24T16:15:05-04:00</lastmod>
+        <lastmod>2016-01-20T11:39:40-05:00</lastmod>
     </url>
     <url>
         <loc>http://anunexpectedcoder.com/blog/2014/06/25/iterators-schmiterators/</loc>
-        <lastmod>2015-09-24T16:15:05-04:00</lastmod>
+        <lastmod>2016-01-20T11:39:16-05:00</lastmod>
     </url>
     <url>
         <loc>http://anunexpectedcoder.com/blog/2014/08/10/premature-ajaxulation/</loc>
-        <lastmod>2015-09-24T16:15:05-04:00</lastmod>
+        <lastmod>2016-01-20T11:38:55-05:00</lastmod>
     </url>
     <url>
         <loc>http://anunexpectedcoder.com/blog/2014/08/13/zip-it/</loc>
-        <lastmod>2015-09-24T16:15:05-04:00</lastmod>
+        <lastmod>2016-01-20T11:38:33-05:00</lastmod>
     </url>
     <url>
         <loc>http://anunexpectedcoder.com/blog/2014/09/01/starting-a-simple-server/</loc>
-        <lastmod>2015-09-24T16:15:05-04:00</lastmod>
+        <lastmod>2016-01-20T11:37:36-05:00</lastmod>
     </url>
     <url>
         <loc>http://anunexpectedcoder.com/blog/2015/09/23/slide-slide-slippity-slide/</loc>
-        <lastmod>2015-11-13T18:43:37-05:00</lastmod>
+        <lastmod>2016-01-20T11:40:02-05:00</lastmod>
+    </url>
+    <url>
+        <loc>
+            http://anunexpectedcoder.com/blog/2015/12/03/dont-fence-me-in-how-to-use-gulp-with-shopify-and-timber-to-gain-control-of-your-front-end/
+        </loc>
+        <lastmod>2016-01-20T11:44:55-05:00</lastmod>
     </url>
     <url>
         <loc>http://anunexpectedcoder.com/about/</loc>
@@ -30,11 +36,11 @@
     </url>
     <url>
         <loc>http://anunexpectedcoder.com/blog/archives/</loc>
-        <lastmod>2015-11-13T18:43:37-05:00</lastmod>
+        <lastmod>2016-01-20T11:44:55-05:00</lastmod>
     </url>
     <url>
         <loc>http://anunexpectedcoder.com/</loc>
-        <lastmod>2015-11-13T18:43:37-05:00</lastmod>
+        <lastmod>2016-01-20T11:44:55-05:00</lastmod>
     </url>
     <url>
         <loc>http://anunexpectedcoder.com/robots.txt</loc>
