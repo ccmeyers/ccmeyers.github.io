@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Gulp | An Unexpected Coder]]></title>
   <link href="http://anunexpectedcoder.com/blog/categories/gulp/atom.xml" rel="self"/>
   <link href="http://anunexpectedcoder.com/"/>
-  <updated>2016-01-20T11:48:42-05:00</updated>
+  <updated>2016-01-26T14:46:17-05:00</updated>
   <id>http://anunexpectedcoder.com/</id>
   <author>
     <name><![CDATA[Catherine Meyers]]></name>
@@ -32,6 +32,18 @@
 
 <p>Then bring in Timber:
 <code>git clone https://github.com/Shopify/Timber.git</code></p>
+
+<p>Now that we have all the Timber files, we need to upload those to Shopify. For this we&rsquo;re going to use the <a href="https://github.com/Shopify/shopify_theme" target="_blank">shopify_theme gem</a>.</p>
+
+<p><code>cd Timber</code></p>
+
+<p>Open the <code>Gemfile</code> inside the Timber folder and add <code>gem 'shopify_theme'</code>. Then run <code>bundle install</code> in your terminal. In the root of the Timber folder, you have a <code>config-sample.yml</code> file. Duplicate that file, rename it <code>config.yml</code> and add your Shopify API  credentials to it. To get your API credentials, go into your Shopify admin panel and create a <a href="http://docs.shopify.com/api/authentication/creating-a-private-app" target="_blank">private app</a>.</p>
+
+<p>Then add <code>config.yml</code> to your <code>.gitignore</code> (the one in the root of your project, not the Timber folder).</p>
+
+<p>Using the shopify_theme gem, we are going to run <code>theme replace</code> in your terminal. Make sure you are in the <code>Timber</code> folder while doing this so it has access to your <code>Gemfile</code> and your <code>config.yml</code>. This will replace all of Shopify&rsquo;s default files, with Timber&rsquo;s default files. You only have to do this once. From here on out, any file we save will automatically be uploaded to Shopify through another library.</p>
+
+<p>Go back to the root of your project <code>cd ..</code>.</p>
 
 <p>Then make yourself a folder where you&rsquo;ll put all your precompiled assets. I named mine &lsquo;lib&rsquo;:
 <code>mkdir lib</code>
@@ -67,7 +79,7 @@ my-shopify-shop
 <code>npm install --save-dev gulp gulp-watch gulp-shopify-upload</code>
 That&rsquo;s going to install both <a href="https://github.com/gulpjs/gulp/blob/master/docs/getting-started.md" target="_blank">gulp</a>, <a href="https://www.npmjs.com/package/gulp-watch" target="_blank"></a>, and <a href="https://github.com/mikenorthorp/gulp-shopify-upload" target="_blank">gulp-shopify-upload</a></p>
 
-<p>Go into your Shopify admin panel and create a <a href="http://docs.shopify.com/api/authentication/creating-a-private-app" target="_blank">private app</a>. Create a file called <code>config.json</code> in your root and put your Shopify API credentials in there. It should look something like this (but obviously with all your credentials):</p>
+<p>Create a file called <code>config.json</code> in your root and put your Shopify API credentials in there. It should look something like this (but obviously with all your credentials):</p>
 
 <p>config.json
 <code>json
