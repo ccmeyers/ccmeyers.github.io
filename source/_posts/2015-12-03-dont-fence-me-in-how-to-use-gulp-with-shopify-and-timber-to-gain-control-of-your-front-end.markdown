@@ -25,6 +25,18 @@ First, create your project. In your terminal:
 Then bring in Timber:
 `git clone https://github.com/Shopify/Timber.git`
 
+Now that we have all the Timber files, we need to upload those to Shopify. For this we're going to use the <a href="https://github.com/Shopify/shopify_theme" target="_blank">shopify_theme gem</a>.
+
+`cd Timber`
+
+Open the `Gemfile` inside the Timber folder and add `gem 'shopify_theme'`. Then run `bundle install` in your terminal. In the root of the Timber folder, you have a `config-sample.yml` file. Duplicate that file, rename it `config.yml` and add your Shopify API  credentials to it. To get your API credentials, go into your Shopify admin panel and create a <a href="http://docs.shopify.com/api/authentication/creating-a-private-app" target="_blank">private app</a>. 
+
+Then add `config.yml` to your `.gitignore` (the one in the root of your project, not the Timber folder).
+
+Using the shopify_theme gem, we are going to run `theme replace` in your terminal. Make sure you are in the `Timber` folder while doing this so it has access to your `Gemfile` and your `config.yml`. This will replace all of Shopify's default files, with Timber's default files. You only have to do this once. From here on out, any file we save will automatically be uploaded to Shopify through another library. 
+
+Go back to the root of your project `cd ..`.
+
 Then make yourself a folder where you'll put all your precompiled assets. I named mine 'lib':
 `mkdir lib`
 `cd lib`
@@ -59,7 +71,7 @@ Let's start with uploading changes to Shopify.
 `npm install --save-dev gulp gulp-watch gulp-shopify-upload`
 That's going to install both <a href="https://github.com/gulpjs/gulp/blob/master/docs/getting-started.md" target="_blank">gulp</a>, <a href="https://www.npmjs.com/package/gulp-watch" target="_blank"></a>, and <a href="https://github.com/mikenorthorp/gulp-shopify-upload" target="_blank">gulp-shopify-upload</a>
 
-Go into your Shopify admin panel and create a <a href="http://docs.shopify.com/api/authentication/creating-a-private-app" target="_blank">private app</a>. Create a file called `config.json` in your root and put your Shopify API credentials in there. It should look something like this (but obviously with all your credentials):
+Create a file called `config.json` in your root and put your Shopify API credentials in there. It should look something like this (but obviously with all your credentials):
 
 config.json
 ```json
