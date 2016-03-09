@@ -16,7 +16,11 @@ For my first Shopify project, I decided to use the <a href="http://shopify.githu
 
 Don't tell me what to do Timber! I'm a grown woman, and I'll use Bourbon if I want to!
 
-So, I set out to set up my shopify-theme to be able to precompile assets locally. There's a bunch of documentation and blog posts on how to use Grunt to do this, but I like Gulp better...so I decided to figure that out. 
+So, I set out to set up my shopify-theme to be able to precompile assets locally. There's a bunch of documentation and blog posts on how to use Grunt to do this, but I like Gulp better...so I decided to figure that out.
+
+TL;DR: I used Gulp, Browserify, and other tools to compile an external `lib` folder full of my organized JS, SCSS, and Images. The compiled files are added to Timber's `assets` folder and automatically uploaded to Shopify (along with any other files that were changed).
+
+Here's the step-by-step version:
 
 First, create your project. In your terminal:
 `mkdir my-shopify-shop`
@@ -91,7 +95,7 @@ var gulp = require('gulp');
 var watch = require('gulp-watch');
 var gulpShopify = require('gulp-shopify-upload');
 // Grabs your API credentials
-var config = require('config.json');
+var config = require('./config.json');
  
 gulp.task('shopifywatch', function() {
   var options = {
