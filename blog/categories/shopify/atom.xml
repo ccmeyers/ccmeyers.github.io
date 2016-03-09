@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Shopify | An Unexpected Coder]]></title>
   <link href="http://anunexpectedcoder.com/blog/categories/shopify/atom.xml" rel="self"/>
   <link href="http://anunexpectedcoder.com/"/>
-  <updated>2016-01-26T14:46:17-05:00</updated>
+  <updated>2016-03-09T13:37:48-05:00</updated>
   <id>http://anunexpectedcoder.com/</id>
   <author>
     <name><![CDATA[Catherine Meyers]]></name>
@@ -99,7 +99,7 @@ var gulp = require(&lsquo;gulp&rsquo;);
 var watch = require(&lsquo;gulp-watch&rsquo;);
 var gulpShopify = require(&lsquo;gulp-shopify-upload&rsquo;);
 // Grabs your API credentials
-var config = require(&lsquo;config.json&rsquo;);</p>
+var config = require(&lsquo;./config.json&rsquo;);</p>
 
 <p>gulp.task(&lsquo;shopifywatch&rsquo;, function() {
   var options = {</p>
