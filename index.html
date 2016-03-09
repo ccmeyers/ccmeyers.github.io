@@ -105,6 +105,10 @@
 
 <p>So, I set out to set up my shopify-theme to be able to precompile assets locally. There&rsquo;s a bunch of documentation and blog posts on how to use Grunt to do this, but I like Gulp better&hellip;so I decided to figure that out.</p>
 
+<p>TL;DR: I used Gulp, Browserify, and other tools to compile an external <code>lib</code> folder full of my organized JS, SCSS, and Images. The compiled files are added to Timber&rsquo;s <code>assets</code> folder and automatically uploaded to Shopify (along with any other files that were changed).</p>
+
+<p>Here&rsquo;s the step-by-step version:</p>
+
 <p>First, create your project. In your terminal:
 <code>mkdir my-shopify-shop</code>
 <code>cd my-shopify-shop</code></p>
