@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Bourbon | An Unexpected Coder]]></title>
   <link href="http://anunexpectedcoder.com/blog/categories/bourbon/atom.xml" rel="self"/>
   <link href="http://anunexpectedcoder.com/"/>
-  <updated>2016-03-09T13:56:22-05:00</updated>
+  <updated>2016-03-17T09:29:52-07:00</updated>
   <id>http://anunexpectedcoder.com/</id>
   <author>
     <name><![CDATA[Catherine Meyers]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Don't Fence Me In: How to use Gulp with Shopify and Timber to Gain Control of Your Front End]]></title>
     <link href="http://anunexpectedcoder.com/blog/2015/12/03/dont-fence-me-in-how-to-use-gulp-with-shopify-and-timber-to-gain-control-of-your-front-end/"/>
-    <updated>2015-12-03T11:59:01-05:00</updated>
+    <updated>2015-12-03T08:59:01-08:00</updated>
     <id>http://anunexpectedcoder.com/blog/2015/12/03/dont-fence-me-in-how-to-use-gulp-with-shopify-and-timber-to-gain-control-of-your-front-end</id>
     <content type="html"><![CDATA[<p>For my first Shopify project, I decided to use the <a href="http://shopify.github.io/Timber/" target="_blank">Timber</a> framework to help with my theme development. I think it&rsquo;s a great way to get your theme started fast with the right setup. However, I hated the lack of organization and control of your front end code. Everything was dumped in the &lsquo;assets&rsquo; folder. Images and JS files and SCSS files all thrown in together? I think not! Plus I wasn&rsquo;t a huge fan their grid system and wanted to use <a href="http://neat.bourbon.io/" target="_blank">Bourbon Neat</a>, which is my favorite grid system. But here&rsquo;s what Timber has to say about imports and mixins and Bourbon Neat:</p>
 

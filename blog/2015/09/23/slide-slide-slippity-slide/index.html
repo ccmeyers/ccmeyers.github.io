@@ -9,7 +9,7 @@
   <meta name="author" content="Catherine Meyers">
 
   
-  <meta name="description" content="How to Create a Slide Presentation in less than 200 Lines of JavaScript Recently a client needed a website that could be used both as a presentation &hellip;">
+  <meta name="description" content="How to Create a Slide Presentation with JavaScript Recently a client needed a website that could be used both as a presentation tool (like a Keynote &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -87,14 +87,14 @@
   
 
 
-<time datetime="2015-09-23T16:47:44-04:00" pubdate data-updated="true">Sep 23<span>rd</span>, 2015</time>
+<time datetime="2015-09-23T13:47:44-07:00" pubdate data-updated="true">Sep 23<span>rd</span>, 2015</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><h2>How to Create a Slide Presentation in less than 200 Lines of JavaScript</h2>
+<div class="entry-content"><h2>How to Create a Slide Presentation with JavaScript</h2>
 
 <p>Recently a client needed a website that could be used both as a presentation tool (like a Keynote or PowerPoint presentation) and as a stand-alone website to be sent to possible investors to scroll through.</p>
 
@@ -102,7 +102,7 @@
 
 <p>(If you want to jump ahead to the finished product, here&rsquo;s <a href="http://anunexpectedcoder.com/slide-presentation/" target="_blank">an example</a> of what I built along with <a href="https://github.com/ccmeyers/slide-presentation" target="_blank">the code on github</a>.)</p>
 
-<p>First I made my panels. I broke up the site into sections (literally &mdash; using <code>&lt;section&gt;&lt;/section&gt;</code> tags) and made each section <code>height = 100vh</code>. Actually, I had to make room for my fixed nav up top, so it was really <code>height = calc(100vh - 103)</code>. Now that I had things looking the way they should, I needed to make them act the way they should.</p>
+<p>First I made my panels. I broke up the site into sections (literally &mdash; using <code>&lt;section&gt;&lt;/section&gt;</code> tags) and made each section <code>height = 100vh</code>. Actually, I had to make room for my fixed nav up top, so it was really <code>height = calc(100vh - 102)</code>. Now that I had things looking the way they should, I needed to make them act the way they should.</p>
 
 <p>I soon realized that my biggest challenge was to designate which section was the current panel so we could find the previous and next panels. I found this <a href="http://stackoverflow.com/questions/22659903/jquery-scroll-to-next-prev-section-by-keyup-keydown" target="_blank">stackoverflow answer</a> that seemed like it could be a solution. It used the <a href="https://github.com/customd/jquery-visible" target="_blank">jquery-visible plugin</a> to tell if a section was in view and then found next and previous based on that. However, after the better part of a day going down that path, I realized it wouldn&rsquo;t work for my needs. Before giving up, I asked another engineer if he had any idea how I could make this work (shout out, Kevin!). He said, &ldquo;Why don&rsquo;t you try using waypoints?&rdquo; YES! Why didn&rsquo;t I think of that?</p>
 
@@ -140,17 +140,25 @@
 <span class='line-number'>30</span>
 <span class='line-number'>31</span>
 <span class='line-number'>32</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'>  <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;section&#39;</span><span class="p">).</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">getCurrentPanel</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">navHeight</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;header&#39;</span><span class="p">).</span><span class="nx">outerHeight</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;section&#39;</span><span class="p">).</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
 </span><span class='line'>    <span class="kd">var</span> <span class="nx">index</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">index</span><span class="p">(</span><span class="s1">&#39;section&#39;</span><span class="p">),</span>
-</span><span class='line'>        <span class="nx">currentSection</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.section&#39;</span><span class="o">+</span><span class="nx">index</span><span class="p">),</span>
-</span><span class='line'>        <span class="nx">nextSection</span> <span class="o">=</span> <span class="nx">currentSection</span><span class="p">.</span><span class="nx">next</span><span class="p">(),</span>
-</span><span class='line'>        <span class="nx">prevSection</span> <span class="o">=</span> <span class="nx">currentSection</span><span class="p">.</span><span class="nx">prev</span><span class="p">();</span>
+</span><span class='line'>        <span class="nx">currentSection</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;section&#39;</span><span class="p">).</span><span class="nx">get</span><span class="p">(</span><span class="nx">index</span><span class="p">),</span>
+</span><span class='line'>        <span class="nx">nextSection</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nx">currentSection</span><span class="p">).</span><span class="nx">next</span><span class="p">(),</span>
+</span><span class='line'>        <span class="nx">prevSection</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nx">currentSection</span><span class="p">).</span><span class="nx">prev</span><span class="p">();</span>
 </span><span class='line'>        <span class="nx">currentPanelClass</span> <span class="o">=</span> <span class="s1">&#39;current-panel&#39;</span><span class="p">;</span>
+</span><span class='line'>
 </span><span class='line'>    <span class="kd">var</span> <span class="nx">waypointsDown</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Waypoint</span><span class="p">({</span>
 </span><span class='line'>      <span class="nx">element</span><span class="o">:</span> <span class="nx">currentSection</span><span class="p">,</span>
 </span><span class='line'>      <span class="nx">handler</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">direction</span><span class="p">)</span> <span class="p">{</span>
 </span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="nx">direction</span> <span class="o">===</span> <span class="s1">&#39;down&#39;</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>          <span class="nx">currentSection</span><span class="p">.</span><span class="nx">addClass</span><span class="p">(</span><span class="nx">currentPanelClass</span><span class="p">);</span>
+</span><span class='line'>          <span class="nx">$</span><span class="p">(</span><span class="nx">currentSection</span><span class="p">).</span><span class="nx">addClass</span><span class="p">(</span><span class="nx">currentPanelClass</span><span class="p">);</span>
 </span><span class='line'>          <span class="k">if</span> <span class="p">(</span><span class="nx">prevSection</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
 </span><span class='line'>            <span class="nx">prevSection</span><span class="p">.</span><span class="nx">removeClass</span><span class="p">(</span><span class="nx">currentPanelClass</span><span class="p">);</span>
 </span><span class='line'>          <span class="p">}</span>
@@ -162,20 +170,20 @@
 </span><span class='line'>      <span class="nx">element</span><span class="o">:</span> <span class="nx">currentSection</span><span class="p">,</span>
 </span><span class='line'>      <span class="nx">handler</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">direction</span><span class="p">)</span> <span class="p">{</span>
 </span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="nx">direction</span> <span class="o">===</span> <span class="s1">&#39;up&#39;</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>          <span class="nx">currentSection</span><span class="p">.</span><span class="nx">addClass</span><span class="p">(</span><span class="nx">currentPanelClass</span><span class="p">);</span>
-</span><span class='line'>          <span class="k">if</span> <span class="p">(</span><span class="nx">currentSection</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>          <span class="nx">$</span><span class="p">(</span><span class="nx">currentSection</span><span class="p">).</span><span class="nx">addClass</span><span class="p">(</span><span class="nx">currentPanelClass</span><span class="p">);</span>
+</span><span class='line'>          <span class="k">if</span> <span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="nx">currentSection</span><span class="p">).</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
 </span><span class='line'>            <span class="nx">nextSection</span><span class="p">.</span><span class="nx">removeClass</span><span class="p">(</span><span class="nx">currentPanelClass</span><span class="p">);</span>
 </span><span class='line'>          <span class="p">}</span>
 </span><span class='line'>        <span class="p">}</span>
 </span><span class='line'>      <span class="p">},</span>
-</span><span class='line'>      <span class="nx">offset</span><span class="o">:</span> <span class="mi">100</span>
+</span><span class='line'>      <span class="nx">offset</span><span class="o">:</span> <span class="nx">navHeight</span>
 </span><span class='line'>    <span class="p">});</span>
 </span><span class='line'>  <span class="p">});</span>
 </span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>In that function, I&rsquo;m looping through all the sections and assigning a waypoint to each based on its index. I set up my HTML so that each <code>&lt;section&gt;</code> had a class based on its position (i.e. the first section has a class of &lsquo;section0&rsquo;). As you&rsquo;re scrolling down, a section will get the class &lsquo;currentPanel&rsquo; when it&rsquo;s 200px from the top. On the way back up, a section would get that class 100px from the top. I&rsquo;m also making sure that as the &lsquo;currentPanel&rsquo; class is added to one section, it is removed from the section that just had it.</p>
+<p>In that function, I&rsquo;m looping through all the sections and assigning a waypoint to each based on its index. As you&rsquo;re scrolling down, a section will get the class &lsquo;currentPanel&rsquo; when it&rsquo;s 200px from the top. On the way back up, a section would get that class as soon as it hits the nav. I&rsquo;m also making sure that as the &lsquo;currentPanel&rsquo; class is added to one section, it is removed from the section that just had it.</p>
 
 <p>Now that I could find the current panel, I needed to designate next and previous panels and animate the scroll.</p>
 
@@ -202,13 +210,8 @@
 <span class='line-number'>21</span>
 <span class='line-number'>22</span>
 <span class='line-number'>23</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">scrollToElement</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">panel</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>  <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;html, body&#39;</span><span class="p">).</span><span class="nx">animate</span><span class="p">({</span>
-</span><span class='line'>    <span class="nx">scrollTop</span><span class="o">:</span> <span class="nx">panel</span><span class="p">.</span><span class="nx">offset</span><span class="p">().</span><span class="nx">top</span> <span class="o">-</span> <span class="mi">102</span>
-</span><span class='line'>  <span class="p">},</span> <span class="mi">200</span><span class="p">);</span>
-</span><span class='line'><span class="p">},</span>
-</span><span class='line'>
-</span><span class='line'><span class="nx">findNext</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+<span class='line-number'>24</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">findNext</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
 </span><span class='line'>  <span class="kd">var</span> <span class="nx">that</span> <span class="o">=</span> <span class="k">this</span><span class="p">,</span>
 </span><span class='line'>      <span class="nx">currentPanel</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.current-panel&#39;</span><span class="p">),</span>
 </span><span class='line'>      <span class="nx">nextPanel</span> <span class="o">=</span> <span class="nx">currentPanel</span><span class="p">.</span><span class="nx">next</span><span class="p">(</span><span class="s1">&#39;section&#39;</span><span class="p">);</span>
@@ -224,6 +227,13 @@
 </span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="nx">prevPanel</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
 </span><span class='line'>    <span class="nx">that</span><span class="p">.</span><span class="nx">scrollToElement</span><span class="p">(</span><span class="nx">prevPanel</span><span class="p">);</span>
 </span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">},</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">scrollToElement</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">panel</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">navHeight</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;header&#39;</span><span class="p">).</span><span class="nx">outerHeight</span><span class="p">();</span>
+</span><span class='line'>  <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;html, body&#39;</span><span class="p">).</span><span class="nx">animate</span><span class="p">({</span>
+</span><span class='line'>    <span class="nx">scrollTop</span><span class="o">:</span> <span class="nx">panel</span><span class="p">.</span><span class="nx">offset</span><span class="p">().</span><span class="nx">top</span> <span class="o">-</span> <span class="nx">navHeight</span>
+</span><span class='line'>  <span class="p">},</span> <span class="mi">200</span><span class="p">);</span>
 </span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -261,7 +271,7 @@
 
 <p>Thanks to my &lsquo;getCurrentPanel&rsquo; function, I knew that the panel with the class &lsquo;currentPanel&rsquo; was my current panel, and could fire my &lsquo;findNext&rsquo; or &lsquo;findPrev&rsquo; functions based on whether the keyCodes called for up or down movement. Yay!</p>
 
-<p>On to what I call &lsquo;fragmented&rsquo; panels. By this I mean sections that call for a halt in the movement up and down and instead move through the content inside the panel itself.</p>
+<p>On to what I call &lsquo;fragmented&rsquo; panels. By this I mean sections that call for a halt in the movement up and down and instead move through the content inside the panel itself. We&rsquo;re also looking out for a <code>fragment-subnav</code> if it has one. All the fragmented examples in my demo site have subnavs. They give a great visual cue that there are other fragments and lets the user easily navigate them. But a subnav is not required.</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -298,37 +308,83 @@
 <span class='line-number'>33</span>
 <span class='line-number'>34</span>
 <span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
 </pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">fragmentedPanel</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">movement</span><span class="p">)</span> <span class="p">{</span>
 </span><span class='line'>  <span class="kd">var</span> <span class="nx">that</span> <span class="o">=</span> <span class="k">this</span><span class="p">,</span>
 </span><span class='line'>      <span class="nx">currentFragmentedPanel</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.current-panel.fragmented&#39;</span><span class="p">),</span>
 </span><span class='line'>      <span class="nx">currentFragmentedParts</span> <span class="o">=</span> <span class="nx">currentFragmentedPanel</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;.fragmented-part.active&#39;</span><span class="p">);</span>
 </span><span class='line'>  <span class="nx">currentFragmentedParts</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
 </span><span class='line'>    <span class="kd">var</span> <span class="nx">fragmentIndex</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">index</span><span class="p">(</span><span class="s1">&#39;.current-panel .fragmented-part&#39;</span><span class="p">),</span>
-</span><span class='line'>        <span class="nx">nextFragment</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.current-panel .fragmented-part.part&#39;</span><span class="o">+</span><span class="nx">fragmentIndex</span><span class="p">).</span><span class="nx">next</span><span class="p">(),</span>
-</span><span class='line'>        <span class="nx">prevFragment</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.current-panel .fragmented-part.part&#39;</span><span class="o">+</span><span class="nx">fragmentIndex</span><span class="p">).</span><span class="nx">prev</span><span class="p">(),</span>
+</span><span class='line'>        <span class="nx">fragment</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.current-panel .fragmented-part&#39;</span><span class="p">).</span><span class="nx">get</span><span class="p">(</span><span class="nx">fragmentIndex</span><span class="p">),</span>
+</span><span class='line'>        <span class="nx">nextFragment</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nx">fragment</span><span class="p">).</span><span class="nx">next</span><span class="p">(),</span>
+</span><span class='line'>        <span class="nx">prevFragment</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nx">fragment</span><span class="p">).</span><span class="nx">prev</span><span class="p">(),</span>
 </span><span class='line'>        <span class="nx">checkForLast</span> <span class="o">=</span> <span class="nx">nextFragment</span><span class="p">.</span><span class="nx">next</span><span class="p">(),</span>
-</span><span class='line'>        <span class="nx">checkForFirst</span> <span class="o">=</span> <span class="nx">fragmentIndex</span> <span class="o">-</span> <span class="mi">2</span><span class="p">;</span>
+</span><span class='line'>        <span class="nx">checkForFirst</span> <span class="o">=</span> <span class="nx">fragmentIndex</span> <span class="o">-</span> <span class="mi">2</span><span class="p">,</span>
+</span><span class='line'>        <span class="nx">hasSubnav</span> <span class="o">=</span> <span class="nx">currentFragmentedPanel</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;.fragment-subnav&#39;</span><span class="p">).</span><span class="nx">length</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="nx">hasSubnav</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="kd">var</span> <span class="nx">activeSubnav</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.current-panel .fragment-subnav.active&#39;</span><span class="p">),</span>
+</span><span class='line'>          <span class="nx">nextSubnav</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.current-panel .fragment-subnav&#39;</span><span class="p">).</span><span class="nx">get</span><span class="p">(</span><span class="nx">fragmentIndex</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span>
+</span><span class='line'>          <span class="nx">prevSubnav</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.current-panel .fragment-subnav&#39;</span><span class="p">).</span><span class="nx">get</span><span class="p">(</span><span class="nx">fragmentIndex</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
 </span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="nx">movement</span> <span class="o">===</span> <span class="s1">&#39;down&#39;</span> <span class="o">&amp;&amp;</span> <span class="nx">nextFragment</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
 </span><span class='line'>      <span class="k">if</span> <span class="p">(</span><span class="nx">checkForLast</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
 </span><span class='line'>        <span class="nx">currentFragmentedParts</span><span class="p">.</span><span class="nx">removeClass</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">);</span>
 </span><span class='line'>        <span class="nx">nextFragment</span><span class="p">.</span><span class="nx">addClass</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">);</span>
 </span><span class='line'>        <span class="nx">currentFragmentedPanel</span><span class="p">.</span><span class="nx">removeClass</span><span class="p">(</span><span class="s1">&#39;first-fragment&#39;</span><span class="p">);</span>
 </span><span class='line'>        <span class="nx">currentFragmentedPanel</span><span class="p">.</span><span class="nx">removeClass</span><span class="p">(</span><span class="s1">&#39;last-fragment&#39;</span><span class="p">);</span>
+</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="nx">hasSubnav</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>          <span class="nx">activeSubnav</span><span class="p">.</span><span class="nx">removeClass</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">);</span>
+</span><span class='line'>          <span class="nx">$</span><span class="p">(</span><span class="nx">nextSubnav</span><span class="p">).</span><span class="nx">addClass</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">);</span>
+</span><span class='line'>        <span class="p">}</span>
 </span><span class='line'>      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
 </span><span class='line'>        <span class="nx">currentFragmentedParts</span><span class="p">.</span><span class="nx">removeClass</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">);</span>
 </span><span class='line'>        <span class="nx">nextFragment</span><span class="p">.</span><span class="nx">addClass</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">);</span>
 </span><span class='line'>        <span class="nx">currentFragmentedPanel</span><span class="p">.</span><span class="nx">removeClass</span><span class="p">(</span><span class="s1">&#39;first-fragment&#39;</span><span class="p">);</span>
 </span><span class='line'>        <span class="nx">currentFragmentedPanel</span><span class="p">.</span><span class="nx">addClass</span><span class="p">(</span><span class="s1">&#39;last-fragment&#39;</span><span class="p">);</span>
+</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="nx">hasSubnav</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>          <span class="nx">activeSubnav</span><span class="p">.</span><span class="nx">removeClass</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">);</span>
+</span><span class='line'>          <span class="nx">$</span><span class="p">(</span><span class="nx">nextSubnav</span><span class="p">).</span><span class="nx">addClass</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">);</span>
+</span><span class='line'>        <span class="p">}</span>
 </span><span class='line'>      <span class="p">}</span>
 </span><span class='line'>    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">movement</span> <span class="o">===</span> <span class="s1">&#39;up&#39;</span> <span class="o">&amp;&amp;</span> <span class="nx">prevFragment</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
 </span><span class='line'>      <span class="k">if</span> <span class="p">(</span><span class="nx">checkForFirst</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
 </span><span class='line'>        <span class="nx">currentFragmentedParts</span><span class="p">.</span><span class="nx">removeClass</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">);</span>
 </span><span class='line'>        <span class="nx">prevFragment</span><span class="p">.</span><span class="nx">addClass</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">);</span>
 </span><span class='line'>        <span class="nx">currentFragmentedPanel</span><span class="p">.</span><span class="nx">removeClass</span><span class="p">(</span><span class="s1">&#39;first-fragment&#39;</span><span class="p">).</span><span class="nx">removeClass</span><span class="p">(</span><span class="s1">&#39;last-fragment&#39;</span><span class="p">);</span>
+</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="nx">hasSubnav</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>          <span class="nx">activeSubnav</span><span class="p">.</span><span class="nx">removeClass</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">);</span>
+</span><span class='line'>          <span class="nx">$</span><span class="p">(</span><span class="nx">prevSubnav</span><span class="p">).</span><span class="nx">addClass</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">);</span>
+</span><span class='line'>        <span class="p">}</span>
 </span><span class='line'>      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
 </span><span class='line'>        <span class="nx">currentFragmentedParts</span><span class="p">.</span><span class="nx">removeClass</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">);</span>
 </span><span class='line'>        <span class="nx">prevFragment</span><span class="p">.</span><span class="nx">addClass</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">);</span>
 </span><span class='line'>        <span class="nx">currentFragmentedPanel</span><span class="p">.</span><span class="nx">removeClass</span><span class="p">(</span><span class="s1">&#39;last-fragment&#39;</span><span class="p">).</span><span class="nx">addClass</span><span class="p">(</span><span class="s1">&#39;first-fragment&#39;</span><span class="p">);</span>
+</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="nx">hasSubnav</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>          <span class="nx">activeSubnav</span><span class="p">.</span><span class="nx">removeClass</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">);</span>
+</span><span class='line'>          <span class="nx">$</span><span class="p">(</span><span class="nx">prevSubnav</span><span class="p">).</span><span class="nx">addClass</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">);</span>
+</span><span class='line'>        <span class="p">}</span>
 </span><span class='line'>      <span class="p">}</span>
 </span><span class='line'>    <span class="p">}</span>
 </span><span class='line'>  <span class="p">});</span>
@@ -336,7 +392,8 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>For this code to work, you need to set up your HTML with certain classes. The &lsquo;section&rsquo; will need to get the classes &lsquo;fragmented&rsquo; and &lsquo;first-fragment&rsquo;. The parts within that fragmented section need to get two classes: &lsquo;fragmented-part&rsquo; and part+index (i.e. &lsquo;part0&rsquo;). Here&rsquo;s an example of how to set up the HTML:</p>
+<p>For the code in your fragmented sections to work, you need to set up your HTML with certain classes. The &lsquo;section&rsquo; will need to get the classes &lsquo;fragmented&rsquo; and &lsquo;first-fragment&rsquo;. The fragments within your fragmented section need to get the class &lsquo;fragmented-part&rsquo;. The subnav items should get the class &lsquo;fragment-subnav&rsquo;. And the first fragment item and first subnav item should always get the &lsquo;active&rsquo; class.
+Here&rsquo;s an example of how to set up the HTML:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -347,14 +404,30 @@
 <span class='line-number'>7</span>
 <span class='line-number'>8</span>
 <span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;section</span> <span class="na">class=</span><span class="s">&quot;section0&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>  <span class="c">&lt;!-- this is a slide without fragments --&gt;</span>
-</span><span class='line'><span class="nt">&lt;/section&gt;</span>
-</span><span class='line'><span class="nt">&lt;section</span> <span class="na">class=</span><span class="s">&quot;section1 fragmented first-fragment&quot;</span><span class="nt">&gt;</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;section</span> <span class="na">class=</span><span class="s">&quot;fragmented first-fragment&quot;</span><span class="nt">&gt;</span>
 </span><span class='line'>  <span class="c">&lt;!-- this is a slide with fragments --&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;fragmented-part part0 active&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;fragmented-part part1&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;fragmented-part part2&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;fragmented-part active&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;fragmented-part&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;fragmented-part&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+</span><span class='line'><span class="nt">&lt;/section&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;section</span> <span class="na">class=</span><span class="s">&quot;fragmented first-fragment&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>  <span class="c">&lt;!-- this is a slide with fragments and a subnav--&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;fragment-subnav active&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;fragment-subnav&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;fragment-subnav&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;fragmented-part active&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;fragmented-part&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;fragmented-part&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
 </span><span class='line'><span class="nt">&lt;/section&gt;</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -436,7 +509,7 @@
   
 
 
-<time datetime="2015-09-23T16:47:44-04:00" pubdate data-updated="true">Sep 23<span>rd</span>, 2015</time>
+<time datetime="2015-09-23T13:47:44-07:00" pubdate data-updated="true">Sep 23<span>rd</span>, 2015</time>
       
 
 <span class="categories">
@@ -493,7 +566,7 @@
       </li>
     
       <li class="post">
-        <a href="/blog/2014/08/10/premature-ajaxulation/">Premature Ajaxulation</a>
+        <a href="/blog/2014/08/09/premature-ajaxulation/">Premature Ajaxulation</a>
       </li>
     
   </ul>

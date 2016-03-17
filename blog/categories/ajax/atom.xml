@@ -4,7 +4,7 @@
   <title><![CDATA[Category: ajax | An Unexpected Coder]]></title>
   <link href="http://anunexpectedcoder.com/blog/categories/ajax/atom.xml" rel="self"/>
   <link href="http://anunexpectedcoder.com/"/>
-  <updated>2016-03-09T13:56:22-05:00</updated>
+  <updated>2016-03-17T09:29:52-07:00</updated>
   <id>http://anunexpectedcoder.com/</id>
   <author>
     <name><![CDATA[Catherine Meyers]]></name>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Premature Ajaxulation]]></title>
-    <link href="http://anunexpectedcoder.com/blog/2014/08/10/premature-ajaxulation/"/>
-    <updated>2014-08-10T00:01:10-04:00</updated>
-    <id>http://anunexpectedcoder.com/blog/2014/08/10/premature-ajaxulation</id>
+    <link href="http://anunexpectedcoder.com/blog/2014/08/09/premature-ajaxulation/"/>
+    <updated>2014-08-09T21:01:10-07:00</updated>
+    <id>http://anunexpectedcoder.com/blog/2014/08/09/premature-ajaxulation</id>
     <content type="html"><![CDATA[<h2>Don&rsquo;t worry, it happens to a lot of functions</h2>
 
 <p>Recently, while building an app that used a lot of ajax calls, we kept on running into the problem of an ajax call firing before the function above it finished. Given that the function above provided variables that were necessary in our ajax call, this broke everything.</p>

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Flatiron&nbsp;School | An Unexpected Coder]]></title>
   <link href="http://anunexpectedcoder.com/blog/categories/flatiron-school/atom.xml" rel="self"/>
   <link href="http://anunexpectedcoder.com/"/>
-  <updated>2016-03-09T13:56:22-05:00</updated>
+  <updated>2016-03-17T09:29:52-07:00</updated>
   <id>http://anunexpectedcoder.com/</id>
   <author>
     <name><![CDATA[Catherine Meyers]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Boot it Up, Baby]]></title>
     <link href="http://anunexpectedcoder.com/blog/2014/09/01/starting-a-simple-server/"/>
-    <updated>2014-09-01T18:00:52-04:00</updated>
+    <updated>2014-09-01T15:00:52-07:00</updated>
     <id>http://anunexpectedcoder.com/blog/2014/09/01/starting-a-simple-server</id>
     <content type="html"><![CDATA[<h2>How to Start a Simple Local Server</h2>
 
@@ -49,7 +49,7 @@ Then, just open up <a href="http://localhost:8000/">http://localhost:8000/</a> i
   <entry>
     <title type="html"><![CDATA[Zip It, and Zip it Good]]></title>
     <link href="http://anunexpectedcoder.com/blog/2014/08/13/zip-it/"/>
-    <updated>2014-08-13T19:42:16-04:00</updated>
+    <updated>2014-08-13T16:42:16-07:00</updated>
     <id>http://anunexpectedcoder.com/blog/2014/08/13/zip-it</id>
     <content type="html"><![CDATA[<p>Sometimes scraping can be a complete pain when the site you&rsquo;re dealing with is poorly structured. While trying to scrape composers and their respective musical pieces from a site, we ran into a problem because a composer&rsquo;s pieces were not nested within that composer. Enter the ZIP method, the coolest method I had never heard of that I found out about today.</p>
 
@@ -102,9 +102,9 @@ From there it was easy to save the key as the composer and the value as that com
   
   <entry>
     <title type="html"><![CDATA[Premature Ajaxulation]]></title>
-    <link href="http://anunexpectedcoder.com/blog/2014/08/10/premature-ajaxulation/"/>
-    <updated>2014-08-10T00:01:10-04:00</updated>
-    <id>http://anunexpectedcoder.com/blog/2014/08/10/premature-ajaxulation</id>
+    <link href="http://anunexpectedcoder.com/blog/2014/08/09/premature-ajaxulation/"/>
+    <updated>2014-08-09T21:01:10-07:00</updated>
+    <id>http://anunexpectedcoder.com/blog/2014/08/09/premature-ajaxulation</id>
     <content type="html"><![CDATA[<h2>Don&rsquo;t worry, it happens to a lot of functions</h2>
 
 <p>Recently, while building an app that used a lot of ajax calls, we kept on running into the problem of an ajax call firing before the function above it finished. Given that the function above provided variables that were necessary in our ajax call, this broke everything.</p>
@@ -181,7 +181,7 @@ var check_done = &ldquo;not done&rdquo;</p>
   <entry>
     <title type="html"><![CDATA[Iterators Schmiterators]]></title>
     <link href="http://anunexpectedcoder.com/blog/2014/06/25/iterators-schmiterators/"/>
-    <updated>2014-06-25T15:32:49-04:00</updated>
+    <updated>2014-06-25T12:32:49-07:00</updated>
     <id>http://anunexpectedcoder.com/blog/2014/06/25/iterators-schmiterators</id>
     <content type="html"><![CDATA[<h2>Choosing Between Each, Map, Collect, Select, or Detect</h2>
 
@@ -229,7 +229,7 @@ You see how I had to add two extra lines to set up the variable as an empty arra
   <entry>
     <title type="html"><![CDATA[The Surprising Accessibility of Coding]]></title>
     <link href="http://anunexpectedcoder.com/blog/2014/06/11/first-post-6-dot-11-dot-14/"/>
-    <updated>2014-06-11T23:44:16-04:00</updated>
+    <updated>2014-06-11T20:44:16-07:00</updated>
     <id>http://anunexpectedcoder.com/blog/2014/06/11/first-post-6-dot-11-dot-14</id>
     <content type="html"><![CDATA[<p>If you had come up to me a year ago and told me that I would become a web developer, I would have laughed in your face…hard. But here I am, after having a career as a professional opera singer, learning Ruby, a back-end web programming language used to develop some pretty complex web applications. And I’m actually liking it.</p>
 

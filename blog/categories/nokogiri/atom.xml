@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Nokogiri | An Unexpected Coder]]></title>
   <link href="http://anunexpectedcoder.com/blog/categories/nokogiri/atom.xml" rel="self"/>
   <link href="http://anunexpectedcoder.com/"/>
-  <updated>2016-03-09T13:56:22-05:00</updated>
+  <updated>2016-03-17T09:29:52-07:00</updated>
   <id>http://anunexpectedcoder.com/</id>
   <author>
     <name><![CDATA[Catherine Meyers]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Zip It, and Zip it Good]]></title>
     <link href="http://anunexpectedcoder.com/blog/2014/08/13/zip-it/"/>
-    <updated>2014-08-13T19:42:16-04:00</updated>
+    <updated>2014-08-13T16:42:16-07:00</updated>
     <id>http://anunexpectedcoder.com/blog/2014/08/13/zip-it</id>
     <content type="html"><![CDATA[<p>Sometimes scraping can be a complete pain when the site you&rsquo;re dealing with is poorly structured. While trying to scrape composers and their respective musical pieces from a site, we ran into a problem because a composer&rsquo;s pieces were not nested within that composer. Enter the ZIP method, the coolest method I had never heard of that I found out about today.</p>
 
