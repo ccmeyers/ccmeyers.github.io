@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Premature Ajaxulation"
+title: "Wait for Me! How to Make Your Ajax Call Wait for Another Function"
 date: 2014-08-10 00:01:10 -0400
 comments: true
 categories:
@@ -8,8 +8,6 @@ categories:
 - ajax
 - JavaScript
 ---
-
-##Don't worry, it happens to a lot of functions
 
 Recently, while building an app that used a lot of ajax calls, we kept on running into the problem of an ajax call firing before the function above it finished. Given that the function above provided variables that were necessary in our ajax call, this broke everything.
 
